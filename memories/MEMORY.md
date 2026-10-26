@@ -14,6 +14,6 @@ Cloudflare account armin-hermes@agentmail.to (Account ID: 525732c062f45d7b5c30fc
 §
 Deployed personal VLESS & Trojan tunnel on Cloudflare Workers at hermes-tunnel.armin-hermes.workers.dev (sub at /sub) via repo armin-hermes/hermes-tunnel with UUID f2fa065d-1dff-468a-a7cb-3faf1352b8ce and Rightel Fragment presets.
 §
-Hermes 6h backup (`~/scripts/hermes_backup.py`) auto-chunks >20MB archives into multi-part uploads to Google Drive (excludes *.mp3/*.mp4/*.gif/*.wav); disk watchdog script is at `~/.hermes/scripts/disk_watchdog.py`.
+Hermes 6h backups: GDrive multi-part chunks (scripts/hermes_backup.py); GitHub releases & repo sync to Arminkbskps/Armin-Hermes-Bakup (scripts/hermes_github_backup.py, token in ~/.config/backup/github_token.json). Watchdog at ~/.hermes/scripts/disk_watchdog.py.
 §
 Standing rule: Never open Gmail, Google Accounts, or *.google.com in a browser or OAuth flow without explicit user permission (prevents bot ban on user's linked Google accounts).

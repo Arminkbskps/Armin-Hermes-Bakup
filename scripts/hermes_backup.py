@@ -20,10 +20,10 @@ BASE_EXCLUDES = [
     "--exclude=*.mp3", "--exclude=*.mp4", "--exclude=*.gif", "--exclude=*.wav",
 ]
 
-PATHS = ([".hermes/cron"] + sorted(
+PATHS = ([".hermes/cron", ".hermes/memories", ".hermes/config.yaml", ".hermes/SOUL.md"] + sorted(
     p.replace("/home/daytona/", "") for p in glob.glob("/home/daytona/.hermes/*.db"))
     + [".hermes/skills", ".hermes/sessions",
-       ".config/gdrive", ".config/mail", ".config/cloudflare",
+       ".config/gdrive", ".config/mail", ".config/cloudflare", ".config/backup",
        "scripts", "exam_work"])
 
 FNAME = f"Hermes_Backup_{TS}.tar.gz"

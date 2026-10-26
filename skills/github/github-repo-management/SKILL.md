@@ -402,6 +402,17 @@ curl -s -X POST \
   -H "Content-Type: application/octet-stream" \
   "https://uploads.github.com/repos/$OWNER/$REPO/releases/$RELEASE_ID/assets?name=binary-amd64" \
   --data-binary @./dist/binary-amd64
+
+### Automated System Backups via Releases (Dual-Tier Pattern)
+
+When backing up an agent, workspace, or server to a private GitHub repository:
+- **Never commit monolithic backup archives (`.tar.gz`) or active SQLite database files into git commits.** Each binary change creates a non-diffable snapshot in `.git/objects`, causing local disk usage to inflate rapidly (critical on bounded SSDs like 10GB VPS) and eventually tripping GitHub's 100MB per-file limit.
+- **Dual-tier architecture:**
+  1. **Git `main` branch:** Track human-readable, diffable text trees (`skills/`, `scripts/`, `cron/`, `memories/`, `config/`). Keep `.git` lightweight while offering direct web inspection and version diffs.
+  2. **GitHub Releases:** Package full runtime state and SQLite databases into `.tar.gz` and upload to a tagged release via `https://uploads.github.com/repos/{owner}/{repo}/releases/{id}/assets?name={filename}`. Release assets reside in external blob storage and do not inflate the git repository.
+  3. **Rolling retention:** Query `GET /repos/{owner}/{repo}/releases` and prune releases beyond a retention threshold (e.g., 28 releases for 7 days of 6-hour backups) using `DELETE /repos/{owner}/{repo}/releases/{id}` and their tag refs.
+- **Token isolation for secondary repos:** When using a dedicated backup PAT or secondary identity, avoid modifying global `~/.git-credentials` or `~/.gitconfig`. Scope authentication to the repository remote URL:
+  `git remote add origin "https://${USERNAME}:${BACKUP_TOKEN}@github.com/${OWNER}/${REPO}.git"` in a dedicated staging directory.
 ```
 
 ## 9. GitHub Actions Workflows
