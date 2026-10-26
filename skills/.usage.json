@@ -433,14 +433,14 @@
     "created_by": "agent",
     "last_patched_at": "2026-10-26T13:01:22.865134+00:00",
     "last_reused_patch_generation": 45,
-    "last_used_at": "2026-10-26T13:01:26.723674+00:00",
-    "last_viewed_at": "2026-10-26T13:01:26.720993+00:00",
+    "last_used_at": "2026-10-26T17:47:57.231130+00:00",
+    "last_viewed_at": "2026-10-26T17:47:57.228980+00:00",
     "patch_count": 48,
     "patch_generation": 45,
     "pinned": false,
     "state": "active",
-    "use_count": 82,
-    "view_count": 82
+    "use_count": 83,
+    "view_count": 83
   },
   "cloudflare-ai-vpn-engine": {
     "archived_at": null,
@@ -1234,15 +1234,15 @@
     "created_by": "agent",
     "first_seen_at": null,
     "last_patched_at": "2026-10-26T14:44:52.475346+00:00",
-    "last_reused_patch_generation": 1,
-    "last_used_at": "2026-10-26T14:44:33.655533+00:00",
-    "last_viewed_at": "2026-10-26T14:44:33.653563+00:00",
+    "last_reused_patch_generation": 2,
+    "last_used_at": "2026-10-26T17:47:31.053444+00:00",
+    "last_viewed_at": "2026-10-26T17:47:31.051592+00:00",
     "patch_count": 2,
     "patch_generation": 2,
     "pinned": false,
     "state": "active",
-    "use_count": 3,
-    "view_count": 3
+    "use_count": 4,
+    "view_count": 4
   },
   "himalaya": {
     "archived_at": null,
