@@ -1,0 +1,9 @@
+{
+  "last_report_path": "/home/daytona/.hermes/logs/curator/20261021-140223",
+  "last_run_at": "2026-10-21T14:02:23.502957+00:00",
+  "last_run_duration_seconds": 2.895691,
+  "last_run_summary": "auto: 14 marked stale, 2 archived, 1 reactivated; llm: skipped (consolidation off)",
+  "last_run_summary_shown_at": "2026-08-06T07:23:32.819550+00:00",
+  "paused": false,
+  "run_count": 11
+}

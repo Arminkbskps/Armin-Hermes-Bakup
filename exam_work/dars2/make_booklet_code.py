@@ -1,0 +1,1228 @@
+import os, base64, subprocess
+
+OUTPUT_DIR = "/home/daytona/exam_work/dars2"
+HTML_PATH = os.path.join(OUTPUT_DIR, "Pasokhname_Tashrihi_Dars2_Dahom.html")
+PDF_PATH = os.path.join(OUTPUT_DIR, "Pasokhname_Tashrihi_Dars2_Dahom.pdf")
+
+# Read fonts
+font_dir = "/home/daytona/.hermes/skills/persian-writing/assets/fonts"
+vazir_reg_b64 = ""
+vazir_bold_b64 = ""
+vazir_med_b64 = ""
+with open(os.path.join(font_dir, "Vazirmatn-Regular.ttf"), "rb") as f:
+    vazir_reg_b64 = base64.b64encode(f.read()).decode("ascii")
+with open(os.path.join(font_dir, "Vazirmatn-Bold.ttf"), "rb") as f:
+    vazir_bold_b64 = base64.b64encode(f.read()).decode("ascii")
+with open(os.path.join(font_dir, "Vazirmatn-Medium.ttf"), "rb") as f:
+    vazir_med_b64 = base64.b64encode(f.read()).decode("ascii")
+
+# Read SVGs
+with open(os.path.join(OUTPUT_DIR, "assets/river_geometry.svg"), "r", encoding="utf-8") as f:
+    river_svg = f.read()
+with open(os.path.join(OUTPUT_DIR, "assets/unit_circle_overview.svg"), "r", encoding="utf-8") as f:
+    circle_svg = f.read()
+with open(os.path.join(OUTPUT_DIR, "assets/angle_210_geometry.svg"), "r", encoding="utf-8") as f:
+    angle210_svg = f.read()
+
+# Build HTML
+html = f"""<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>پاسخنامه تشریحی و راهنمای جامع گام‌به‌گام مثلثات دهم</title>
+  <style>
+    @font-face {{
+      font-family: 'Vazirmatn';
+      src: url('data:font/ttf;base64,{vazir_reg_b64}') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }}
+    @font-face {{
+      font-family: 'Vazirmatn';
+      src: url('data:font/ttf;base64,{vazir_med_b64}') format('truetype');
+      font-weight: 500;
+      font-style: normal;
+    }}
+    @font-face {{
+      font-family: 'Vazirmatn';
+      src: url('data:font/ttf;base64,{vazir_bold_b64}') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+    }}
+
+    @page {{
+      size: A4 portrait;
+      margin: 12mm 12mm 14mm 12mm;
+      @bottom-right {{
+        content: "صفحه " counter(page);
+        font-family: 'Vazirmatn', sans-serif;
+        font-size: 8pt;
+        color: #64748b;
+      }}
+      @bottom-left {{
+        content: "ریاضی ۱ دهم · پاسخنامه تشریحی درس دوم فصل دوم (دایره و روابط مثلثاتی)";
+        font-family: 'Vazirmatn', sans-serif;
+        font-size: 8pt;
+        color: #64748b;
+      }}
+    }}
+
+    * {{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }}
+
+    body {{
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 9.3pt;
+      line-height: 1.62;
+      color: #1e293b;
+      background-color: #ffffff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }}
+
+    /* Math formatting engine */
+    .math {{
+      font-family: 'Cambria Math', 'Times New Roman', serif;
+      direction: ltr;
+      display: inline-flex;
+      align-items: center;
+      font-size: 1.02rem;
+      color: #0f172a;
+      font-weight: 600;
+      margin: 0 3px;
+      vertical-align: middle;
+    }}
+    .math-block {{
+      direction: ltr;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 8px 0;
+      padding: 6px 10px;
+      background: #f8fafc;
+      border-radius: 6px;
+      border-left: 3px solid #0284c7;
+      font-family: 'Cambria Math', 'Times New Roman', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #0f172a;
+    }}
+    .frac {{
+      display: inline-flex;
+      flex-direction: column;
+      vertical-align: middle;
+      text-align: center;
+      padding: 0 3px;
+      font-size: 0.88em;
+      line-height: 1.15;
+      margin: 0 2px;
+    }}
+    .num {{
+      border-bottom: 1.5px solid #0f172a;
+      padding: 0 2px 2px 2px;
+    }}
+    .den {{
+      padding: 2px 2px 0 2px;
+    }}
+    .sqrt {{
+      display: inline-flex;
+      align-items: center;
+    }}
+    .sqrt-sym {{
+      font-size: 1.25em;
+      margin-right: 1px;
+    }}
+    .sqrt-bar {{
+      border-top: 1.5px solid #0f172a;
+      padding: 0 2px;
+    }}
+
+    /* Header banner */
+    .header-banner {{
+      border: 2px solid #0f172a;
+      border-radius: 10px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }}
+    .header-title-box {{
+      flex: 1;
+    }}
+    .header-title {{
+      font-size: 14pt;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+    .header-subtitle {{
+      font-size: 9.5pt;
+      color: #475569;
+      margin-top: 4px;
+    }}
+    .header-meta {{
+      text-align: left;
+      font-size: 8.5pt;
+      color: #334155;
+      border-right: 2px solid #cbd5e1;
+      padding-right: 14px;
+      margin-right: 14px;
+      line-height: 1.7;
+    }}
+    .badge-top {{
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 8pt;
+      font-weight: 700;
+      background: #0284c7;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }}
+
+    /* Section divider */
+    .section-bar {{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 18px 0 12px 0;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #0284c7;
+    }}
+    .section-bar h2 {{
+      font-size: 11.5pt;
+      font-weight: 700;
+      color: #0f172a;
+    }}
+    .section-bar .section-badge {{
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 8pt;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 600;
+    }}
+
+    /* Question cards */
+    .q-card {{
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      page-break-inside: avoid;
+      overflow: hidden;
+    }}
+    .q-header {{
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 8px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }}
+    .q-title {{
+      font-weight: 700;
+      font-size: 10pt;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }}
+    .q-tag {{
+      font-size: 7.8pt;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }}
+    .tag-book {{ background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }}
+    .tag-final {{ background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }}
+    .tag-national {{ background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }}
+    .tag-concept {{ background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }}
+
+    .q-body {{
+      padding: 10px 14px;
+      font-size: 9.3pt;
+      color: #1e293b;
+    }}
+    .q-statement {{
+      font-weight: 500;
+      color: #0f172a;
+      line-height: 1.65;
+      margin-bottom: 8px;
+    }}
+
+    /* Solution Box */
+    .sol-box {{
+      background: #ffffff;
+      border-top: 1px dashed #cbd5e1;
+      padding: 10px 14px;
+    }}
+    .sol-header {{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 9.2pt;
+      font-weight: 700;
+      color: #047857;
+      margin-bottom: 8px;
+    }}
+
+    /* Strategic Insight Box */
+    .strategy-box {{
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 6px;
+      padding: 7px 11px;
+      margin-bottom: 9px;
+      font-size: 8.8pt;
+      line-height: 1.55;
+      color: #166534;
+    }}
+    .strategy-box strong {{
+      color: #14532d;
+    }}
+
+    /* Step flow */
+    .step-item {{
+      margin-bottom: 8px;
+      padding-right: 10px;
+      border-right: 2px solid #94a3b8;
+    }}
+    .step-label {{
+      font-weight: 700;
+      font-size: 8.8pt;
+      color: #0369a1;
+      margin-bottom: 2px;
+    }}
+
+    /* Teacher's Trap Box */
+    .trap-box {{
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 6px;
+      padding: 7px 11px;
+      margin-top: 9px;
+      font-size: 8.7pt;
+      color: #92400e;
+      line-height: 1.55;
+    }}
+    .trap-box strong {{
+      color: #78350f;
+    }}
+
+    /* Quick check box */
+    .check-box {{
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 6px 11px;
+      margin-top: 7px;
+      font-size: 8.6pt;
+      color: #475569;
+    }}
+
+    /* Final Answer Highlight */
+    .ans-highlight {{
+      display: inline-block;
+      background: #fef08a;
+      padding: 1px 7px;
+      border-radius: 4px;
+      font-weight: 700;
+      color: #854d0e;
+      border: 1px solid #facc15;
+    }}
+
+    /* Summary table */
+    .summary-table {{
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 8.7pt;
+    }}
+    .summary-table th, .summary-table td {{
+      border: 1px solid #cbd5e1;
+      padding: 6px 8px;
+      text-align: center;
+    }}
+    .summary-table th {{
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+    }}
+
+    .page-break {{
+      page-break-before: always;
+    }}
+
+    .two-col-layout {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 8px 0;
+    }}
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER BANNER ==================== -->
+  <div class="header-banner">
+    <div class="header-title-box">
+      <span class="badge-top">کتاب درسی + امتحانات نهایی و هماهنگ کشوری ۱۴۰۲</span>
+      <div class="header-title">
+        <span>📐</span>
+        <span>پاسخنامه تشریحی و راهنمای جامع گام‌به‌گام مثلثات دهم</span>
+      </div>
+      <div class="header-subtitle">
+        حل تشریحی کامل تمارین درس دوم (دایره مثلثاتی، روابط و اتحادها) · تحلیل مفهومی به همراه تله‌های طراحان آزمون
+      </div>
+    </div>
+    <div class="header-meta">
+      <div><strong>پایه:</strong> دهم (ریاضی و تجربی)</div>
+      <div><strong>مبحث:</strong> درس ۲ از فصل دوم ریاضی ۱</div>
+      <div><strong>سطح سوالات:</strong> از کتاب درسی تا نهایی کشوری</div>
+    </div>
+  </div>
+
+  <!-- ==================== QUICK TOOLBOX / SUMMARY ==================== -->
+  <div class="q-card" style="border: 1.5px solid #0284c7;">
+    <div class="q-header" style="background:#e0f2fe;">
+      <span class="q-title" style="color:#0369a1;">
+        <span>🎯</span>
+        <span>جعبه‌ابزار طلایی درس دوم: نقشه راه دایره مثلثاتی و فرمول‌های کلیدی</span>
+      </span>
+      <span class="q-tag tag-book">مرور سریع قبل از حل</span>
+    </div>
+    <div class="q-body">
+      <div class="two-col-layout">
+        <div>
+          <div style="font-weight:700; color:#0f172a; margin-bottom:4px;">🔹 ۱. تعریف دایره مثلثاتی و نقطه متناظر:</div>
+          <div style="font-size:8.8pt; line-height:1.6;">
+            دایره‌ای به مرکز مبدأ مختصات <span class="math">O(0, 0)</span> و شعاع واحد <span class="math">R = 1</span> که معادله آن <span class="math">x<sup>2</sup> + y<sup>2</sup> = 1</span> است. برای هر زاویه <span class="math">&theta;</span> که انتهای کمان آن روی دایره در نقطه <span class="math">P</span> قرار دارد:
+          </div>
+          <div class="math-block">
+            P(x, y) = P(cos &theta;, sin &theta;) &nbsp;&implies;&nbsp; x = cos &theta; , &nbsp; y = sin &theta;
+          </div>
+          <div style="font-weight:700; color:#0f172a; margin:6px 0 4px 0;">🔹 ۲. روابط فیثاغورسی و اتحادهای پایه:</div>
+          <ul style="font-size:8.7pt; padding-right:18px; line-height:1.65;">
+            <li><strong>رابطه مادر:</strong> <span class="math">sin<sup>2</sup>&theta; + cos<sup>2</sup>&theta; = 1</span></li>
+            <li><strong>رابطه تانژانت:</strong> <span class="math">1 + tan<sup>2</sup>&theta; = <span class="frac"><span class="num">1</span><span class="den">cos<sup>2</sup>&theta;</span></span></span> (به شرط <span class="math">cos &theta; &ne; 0</span>)</li>
+            <li><strong>رابطه کتانژانت:</strong> <span class="math">1 + cot<sup>2</sup>&theta; = <span class="frac"><span class="num">1</span><span class="den">sin<sup>2</sup>&theta;</span></span></span> (به شرط <span class="math">sin &theta; &ne; 0</span>)</li>
+            <li><strong>معکوس یکدیگر:</strong> <span class="math">tan &theta; &middot; cot &theta; = 1 &nbsp;&implies;&nbsp; cot &theta; = <span class="frac"><span class="num">1</span><span class="den">tan &theta;</span></span></span></li>
+          </ul>
+        </div>
+        <div>
+          <div style="text-align:center;">
+            {circle_svg}
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:6px; background:#f1f5f9; padding:6px 10px; border-radius:6px; font-size:8.6pt;">
+        <strong>💡 رمز یادسپاری علائم (قانون «هَستَک»):</strong> 
+        از ربع اول خلاف جهت عقربه‌های ساعت: 
+        <strong>«هـ»</strong> (همه مثبت) &larr; 
+        <strong>«س»</strong> (فقط سینوس مثبت) &larr; 
+        <strong>«ت»</strong> (تانژانت و کتانژانت مثبت) &larr; 
+        <strong>«ک»</strong> (فقط کسینوس مثبت).
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== QUESTION 1 ==================== -->
+  <div class="q-card">
+    <div class="q-header">
+      <span class="q-title">
+        <span>🌊</span>
+        <span>سوال ۱: محاسبه عرض رودخانه (کاربرد مثلثات در زندگی واقعی)</span>
+      </span>
+      <span class="q-tag tag-book">کتاب درسی صفحه ۴۵</span>
+    </div>
+    <div class="q-body">
+      <div class="q-statement">
+        <strong>صورت مسئله:</strong> شخصی می‌خواهد عرض یک رودخانه (<span class="math">AC</span>) را اندازه‌گیری کند. او ابتدا مطابق شکل زیر، نقطه‌ای چون <span class="math">C</span> و سپس نقطه‌ای مانند <span class="math">A</span> را در امتداد <span class="math">C</span> و در طرف دیگر رودخانه مشخص می‌کند و به اندازۀ ۲۰۰ متر از <span class="math">C</span> به‌صورت افقی در امتداد رودخانه حرکت می‌کند تا به نقطۀ <span class="math">B</span> برسد. اگر زاویۀ دید این شخص (از نقطۀ <span class="math">B</span> به نقطۀ <span class="math">A</span>) برابر <span class="math">20&deg;</span> باشد و بدانیم <span class="math">sin 20&deg; &simeq; 0.34</span>، او چگونه می‌تواند عرض رودخانه را محاسبه کند؟ (پاسخ خود را تا دو رقم اعشار برحسب متر بنویسید.)
+      </div>
+
+      <div style="text-align:center; margin:10px 0;">
+        {river_svg}
+      </div>
+
+      <div class="sol-box">
+        <div class="sol-header">
+          <span>✍️</span>
+          <span>پاسخ تشریحی و گام‌به‌گام با نمره‌دهی کامل:</span>
+        </div>
+
+        <div class="strategy-box">
+          <strong>💡 نقشه راه و ایده هندسی:</strong>
+          مثلث <span class="math">&Delta;ACB</span> در رأس <span class="math">C</span> قائمه است (<span class="math">&ang;C = 90&deg;</span>). ضلع مجاور زاویه <span class="math">20&deg;</span> برابر <span class="math">BC = 200\text{ m}</span> و ضلع مقابل آن یعنی عرض رودخانه <span class="math">AC</span> مجهول است. بنابراین پل ارتباطی میان ضلع مقابل و مجاور، <strong>نسبت تانژانت</strong> است: <span class="math">tan 20&deg; = <span class="frac"><span class="num">AC</span><span class="den">BC</span></span></span>. اما چون در فرض مسئله فقط سینوس داده شده، ابتدا باید از اتحاد مادر، کسینوس و سپس تانژانت را به دست آوریم.
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام اول: استخراج نسبت‌های مورد نیاز از اتحاد مادر</div>
+          می‌دانیم برای هر زاویه تند، <span class="math">sin<sup>2</sup>20&deg; + cos<sup>2</sup>20&deg; = 1</span> است:
+          <div class="math-block">
+            cos<sup>2</sup>20&deg; = 1 - sin<sup>2</sup>20&deg; = 1 - (0.34)<sup>2</sup> = 1 - 0.1156 = 0.8844
+          </div>
+          چون زاویه <span class="math">20&deg;</span> در ربع اول قرار دارد، مقدار کسینوس عددی مثبت است:
+          <div class="math-block">
+            cos 20&deg; = <span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar">0.8844</span></span> &simeq; 0.9404 &simeq; 0.94
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام دوم: محاسبه مقدار تانژانت زاویه ۲۰ درجه</div>
+          اکنون از رابطه نسبت سینوس به کسینوس، مقدار تانژانت را به دست می‌آوریم:
+          <div class="math-block">
+            tan 20&deg; = <span class="frac"><span class="num">sin 20&deg;</span><span class="den">cos 20&deg;</span></span> &simeq; <span class="frac"><span class="num">0.34</span><span class="den">0.94</span></span> &simeq; 0.3617
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام سوم: محاسبه عرض رودخانه (ضلع AC)</div>
+          در مثلث قائم‌الزاویه <span class="math">&Delta;ACB</span> داریم:
+          <div class="math-block">
+            tan 20&deg; = <span class="frac"><span class="num">AC</span><span class="den">BC</span></span> &nbsp;&implies;&nbsp; AC = BC &times; tan 20&deg; = 200 &times; <span class="frac"><span class="num">0.34</span><span class="den">0.94</span></span> = <span class="frac"><span class="num">68</span><span class="den">0.94</span></span> &simeq; 72.34\text{ متر}
+          </div>
+          نتیجه نهایی: <span class="ans-highlight">عرض رودخانه تقریباً برابر ۷۲/۳۴ متر است.</span>
+        </div>
+
+        <div class="trap-box">
+          <strong>⚠️ دام آموزشی طراح:</strong>
+          خیلی از دانش‌آموزان به اشتباه رابطه سینوس را می‌نویسند و حساب می‌کنند <span class="math">AC = 200 &times; sin 20&deg; = 68</span>! این یک غلط فاحش است، چون ۲۰۰ متر طول وتر نیست؛ بلکه طول ضلع مجاور روی ساحل است. برای وتر بودن، ناظر باید روی آب حرکت می‌کرد!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== QUESTION 2 ==================== -->
+  <div class="q-card">
+    <div class="q-header">
+      <span class="q-title">
+        <span>⚡️</span>
+        <span>سوال ۲: اثبات تشریحی اتحادهای پنج‌گانه کتاب درسی</span>
+      </span>
+      <span class="q-tag tag-book">کتاب درسی صفحه ۴۶</span>
+    </div>
+    <div class="q-body">
+      <div class="q-statement">
+        <strong>صورت مسئله:</strong> با فرض اینکه مخرج هر کسر تعریف شده است (مخالف صفر است)، درستی هر یک از تساوی‌های زیر را بررسی / ثابت کنید:
+      </div>
+
+      <!-- Part Alef -->
+      <div style="margin-bottom:14px; background:#f8fafc; border-radius:6px; padding:10px; border-right:3px solid #0284c7;">
+        <div style="font-weight:700; color:#0f172a; margin-bottom:4px;">
+          قسمت الف) اثبات تساوی: 
+          <span class="math"><span class="frac"><span class="num">1</span><span class="den">sin &theta;</span></span> &times; tan &theta; = <span class="frac"><span class="num">1</span><span class="den">cos &theta;</span></span></span>
+        </div>
+        <div style="font-size:9pt; line-height:1.6;">
+          <strong>پاسخ تشریحی:</strong> از طرف چپ شروع کرده و تانژانت را برحسب سینوس و کسینوس می‌نویسیم:
+          <div class="math-block">
+            \text{طرف چپ} = <span class="frac"><span class="num">1</span><span class="den">sin &theta;</span></span> &times; <span class="frac"><span class="num">sin &theta;</span><span class="den">cos &theta;</span></span> = <span class="frac"><span class="num">sin &theta;</span><span class="den">sin &theta; &middot; cos &theta;</span></span>
+          </div>
+          با ساده کردن عامل مشترک <span class="math">sin &theta;</span> از صورت و مخرج:
+          <div class="math-block">
+            = <span class="frac"><span class="num">1</span><span class="den">cos &theta;</span></span> = \text{طرف راست} \quad \checkmark
+          </div>
+          <span class="ans-highlight">حکم ثابت شد.</span>
+        </div>
+      </div>
+
+      <!-- Part Be -->
+      <div style="margin-bottom:14px; background:#f8fafc; border-radius:6px; padding:10px; border-right:3px solid #0284c7;">
+        <div style="font-weight:700; color:#0f172a; margin-bottom:4px;">
+          قسمت ب) اثبات تساوی: 
+          <span class="math"><span class="frac"><span class="num">cos &theta;</span><span class="den">1 + sin &theta;</span></span> = <span class="frac"><span class="num">1 - sin &theta;</span><span class="den">cos &theta;</span></span></span>
+        </div>
+        <div style="font-size:9pt; line-height:1.6;">
+          <strong>پاسخ تشریحی (تکنیک طلایی ضرب در مزدوج):</strong> از طرف چپ شروع می‌کنیم. برای از بین بردن مخرج دوجمله‌ای <span class="math">1 + sin &theta;</span>، صورت و مخرج را در مزدوج آن یعنی <span class="math">1 - sin &theta;</span> ضرب می‌کنیم:
+          <div class="math-block">
+            \text{طرف چپ} = <span class="frac"><span class="num">cos &theta;</span><span class="den">1 + sin &theta;</span></span> &times; <span class="frac"><span class="num">1 - sin &theta;</span><span class="den">1 - sin &theta;</span></span> = <span class="frac"><span class="num">cos &theta; (1 - sin &theta;)</span><span class="den">(1 + sin &theta;)(1 - sin &theta;)</span></span>
+          </div>
+          در مخرج، از اتحاد مزدوج استفاده می‌کنیم: <span class="math">(1 + sin &theta;)(1 - sin &theta;) = 1 - sin<sup>2</sup>&theta;</span>. سپس طبق رابطه مادر می‌دانیم <span class="math">1 - sin<sup>2</sup>&theta; = cos<sup>2</sup>&theta;</span>:
+          <div class="math-block">
+            = <span class="frac"><span class="num">cos &theta; (1 - sin &theta;)</span><span class="den">cos<sup>2</sup>&theta;</span></span>
+          </div>
+          یک توان <span class="math">cos &theta;</span> از صورت با مخرج ساده می‌شود:
+          <div class="math-block">
+            = <span class="frac"><span class="num">1 - sin &theta;</span><span class="den">cos &theta;</span></span> = \text{طرف راست} \quad \checkmark
+          </div>
+          <span class="ans-highlight">حکم ثابت شد.</span>
+        </div>
+      </div>
+
+      <!-- Part Pe -->
+      <div style="margin-bottom:14px; background:#f8fafc; border-radius:6px; padding:10px; border-right:3px solid #0284c7;">
+        <div style="font-weight:700; color:#0f172a; margin-bottom:4px;">
+          قسمت پ) اثبات تساوی: 
+          <span class="math"><span class="frac"><span class="num">1 + tan &alpha;</span><span class="den">1 + cot &alpha;</span></span> = tan &alpha;</span>
+        </div>
+        <div style="font-size:9pt; line-height:1.6;">
+          <strong>پاسخ تشریحی (روش هوشمندانه بدون ورود به سینوس و کسینوس):</strong> می‌دانیم کتانژانت معکوس تانژانت است (<span class="math">cot &alpha; = <span class="frac"><span class="num">1</span><span class="den">tan &alpha;</span></span></span>). مخرج کسر را مخرج مشترک می‌گیریم:
+          <div class="math-block">
+            1 + cot &alpha; = 1 + <span class="frac"><span class="num">1</span><span class="den">tan &alpha;</span></span> = <span class="frac"><span class="num">tan &alpha; + 1</span><span class="den">tan &alpha;</span></span>
+          </div>
+          حالا کسر اصلی را بازنویسی می‌کنیم:
+          <div class="math-block">
+            \text{طرف چپ} = <span class="frac"><span class="num">1 + tan &alpha;</span><span class="den"><span class="frac"><span class="num">tan &alpha; + 1</span><span class="den">tan &alpha;</span></span></span></span> = (1 + tan &alpha;) &times; <span class="frac"><span class="num">tan &alpha;</span><span class="den">tan &alpha; + 1</span></span>
+          </div>
+          با ساده کردن عبارت یکسان <span class="math">(1 + tan &alpha;)</span>:
+          <div class="math-block">
+            = tan &alpha; = \text{طرف راست} \quad \checkmark
+          </div>
+          <span class="ans-highlight">حکم ثابت شد.</span>
+        </div>
+      </div>
+
+      <!-- Part Te -->
+      <div style="margin-bottom:14px; background:#f8fafc; border-radius:6px; padding:10px; border-right:3px solid #0284c7;">
+        <div style="font-weight:700; color:#0f172a; margin-bottom:4px;">
+          قسمت ت) اثبات تساوی: 
+          <span class="math">1 - <span class="frac"><span class="num">cos<sup>2</sup>x</span><span class="den">1 + sin x</span></span> = sin x</span>
+        </div>
+        <div style="font-size:9pt; line-height:1.6;">
+          <strong>پاسخ تشریحی:</strong> در صورت کسر دوم، به‌جای <span class="math">cos<sup>2</sup>x</span> از اتحاد مادر <span class="math">1 - sin<sup>2</sup>x</span> استفاده کرده و سپس آن را به اتحاد مزدوج تجزیه می‌کنیم:
+          <div class="math-block">
+            cos<sup>2</sup>x = 1 - sin<sup>2</sup>x = (1 - sin x)(1 + sin x)
+          </div>
+          جایگذاری در کسر:
+          <div class="math-block">
+            <span class="frac"><span class="num">cos<sup>2</sup>x</span><span class="den">1 + sin x</span></span> = <span class="frac"><span class="num">(1 - sin x)(1 + sin x)</span><span class="den">1 + sin x</span></span> = 1 - sin x
+          </div>
+          حالا این عبارت ساده‌شده را درون رابطه اصلی قرار می‌دهیم (دقت در منفی پشت پرانتز):
+          <div class="math-block">
+            \text{طرف چپ} = 1 - (1 - sin x) = 1 - 1 + sin x = sin x = \text{طرف راست} \quad \checkmark
+          </div>
+          <span class="ans-highlight">حکم ثابت شد.</span>
+        </div>
+      </div>
+
+      <!-- Part Se -->
+      <div style="margin-bottom:8px; background:#f8fafc; border-radius:6px; padding:10px; border-right:3px solid #0284c7;">
+        <div style="font-weight:700; color:#0f172a; margin-bottom:4px;">
+          قسمت ث) اثبات تساوی: 
+          <span class="math"><span class="frac"><span class="num">1</span><span class="den">cos x</span></span> - tan x = <span class="frac"><span class="num">cos x</span><span class="den">1 + sin x</span></span></span>
+        </div>
+        <div style="font-size:9pt; line-height:1.6;">
+          <strong>پاسخ تشریحی:</strong> طرف چپ را با تبدیل تانژانت و مخرج مشترک‌گیری یکی می‌کنیم:
+          <div class="math-block">
+            \text{طرف چپ} = <span class="frac"><span class="num">1</span><span class="den">cos x</span></span> - <span class="frac"><span class="num">sin x</span><span class="den">cos x</span></span> = <span class="frac"><span class="num">1 - sin x</span><span class="den">cos x</span></span>
+          </div>
+          اکنون صورت و مخرج را در مزدوج صورت یعنی <span class="math">1 + sin x</span> ضرب می‌کنیم:
+          <div class="math-block">
+            = <span class="frac"><span class="num">(1 - sin x)(1 + sin x)</span><span class="den">cos x (1 + sin x)</span></span> = <span class="frac"><span class="num">1 - sin<sup>2</sup>x</span><span class="den">cos x (1 + sin x)</span></span> = <span class="frac"><span class="num">cos<sup>2</sup>x</span><span class="den">cos x (1 + sin x)</span></span>
+          </div>
+          با ساده کردن یک توان کسینوس:
+          <div class="math-block">
+            = <span class="frac"><span class="num">cos x</span><span class="den">1 + sin x</span></span> = \text{طرف راست} \quad \checkmark
+          </div>
+          <span class="ans-highlight">حکم ثابت شد.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== QUESTION 3 ==================== -->
+  <div class="q-card">
+    <div class="q-header">
+      <span class="q-title">
+        <span>🏆</span>
+        <span>سوال ۳: اثبات اتحاد توان ۴ (هماهنگ کشوری ۱۴۰۲)</span>
+      </span>
+      <span class="q-tag tag-national">هماهنگ کشوری ۱۴۰۲</span>
+    </div>
+    <div class="q-body">
+      <div class="q-statement">
+        <strong>صورت مسئله:</strong> درستی اتحاد مثلثاتی زیر را ثابت کنید:
+        <div class="math-block">
+          cos<sup>4</sup>&alpha; - sin<sup>4</sup>&alpha; = 2cos<sup>2</sup>&alpha; - 1
+        </div>
+      </div>
+      <div class="sol-box">
+        <div class="sol-header">
+          <span>✍️</span>
+          <span>پاسخ تشریحی و گام‌به‌گام:</span>
+        </div>
+
+        <div class="strategy-box">
+          <strong>💡 کلید حل:</strong> تفاضل دو عبارت توان ۴ دقیقاً فرمول اتحاد مزدوج جبری <span class="math">A<sup>2</sup> - B<sup>2</sup> = (A - B)(A + B)</span> است که در آن <span class="math">A = cos<sup>2</sup>&alpha;</span> و <span class="math">B = sin<sup>2</sup>&alpha;</span> می‌باشد.
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام اول: تجزیه طرف چپ به اتحاد مزدوج</div>
+          <div class="math-block">
+            \text{طرف چپ} = (cos<sup>2</sup>&alpha;)<sup>2</sup> - (sin<sup>2</sup>&alpha;)<sup>2</sup> = (cos<sup>2</sup>&alpha; - sin<sup>2</sup>&alpha;)(cos<sup>2</sup>&alpha; + sin<sup>2</sup>&alpha;)
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام دوم: اعمال اتحاد مادر و تبدیل به کسینوس</div>
+          می‌دانیم پرانتز دوم همیشه برابر ۱ است: <span class="math">cos<sup>2</sup>&alpha; + sin<sup>2</sup>&alpha; = 1</span>. بنابراین:
+          <div class="math-block">
+            = (cos<sup>2</sup>&alpha; - sin<sup>2</sup>&alpha;) &times; 1 = cos<sup>2</sup>&alpha; - sin<sup>2</sup>&alpha;
+          </div>
+          چون طرف راست فقط برحسب کسینوس نوشته شده، به‌جای <span class="math">sin<sup>2</sup>&alpha;</span> مقدار معادل آن یعنی <span class="math">1 - cos<sup>2</sup>&alpha;</span> را قرار می‌دهیم:
+          <div class="math-block">
+            = cos<sup>2</sup>&alpha; - (1 - cos<sup>2</sup>&alpha;) = cos<sup>2</sup>&alpha; - 1 + cos<sup>2</sup>&alpha; = 2cos<sup>2</sup>&alpha; - 1 = \text{طرف راست} \quad \checkmark
+          </div>
+          <span class="ans-highlight">اتحاد با موفقیت اثبات شد.</span>
+        </div>
+
+        <div class="check-box">
+          <strong>🔍 تست سریع با زاویه دلخواه:</strong> اگر فرض کنیم <span class="math">&alpha; = 0&deg;</span>، طرف چپ می‌شود <span class="math">1<sup>4</sup> - 0<sup>4</sup> = 1</span> و طرف راست می‌شود <span class="math">2(1)<sup>2</sup> - 1 = 1</span> که کاملاً برابرند!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== QUESTION 4 ==================== -->
+  <div class="q-card">
+    <div class="q-header">
+      <span class="q-title">
+        <span>📍</span>
+        <span>سوال ۴: محاسبه نسبت‌های مثلثاتی در ربع سوم دایره</span>
+      </span>
+      <span class="q-tag tag-book">کتاب درسی و آزمون‌ها</span>
+    </div>
+    <div class="q-body">
+      <div class="q-statement">
+        <strong>صورت مسئله:</strong> اگر <span class="math">sin &alpha; = - <span class="frac"><span class="num">5</span><span class="den">13</span></span></span> و انتهای کمان زاویه <span class="math">&alpha;</span> در ناحیه سوم دایره مثلثاتی باشد، سایر نسبت‌های مثلثاتی زاویه <span class="math">&alpha;</span> (<span class="math">cos &alpha;</span>، <span class="math">tan &alpha;</span>، <span class="math">cot &alpha;</span>) را به دست آورید.
+      </div>
+      <div class="sol-box">
+        <div class="sol-header">
+          <span>✍️</span>
+          <span>پاسخ تشریحی و گام‌به‌گام:</span>
+        </div>
+
+        <div class="strategy-box">
+          <strong>💡 تعیین علائم در ربع سوم (مهم‌ترین گام نمره‌آور):</strong>
+          در ربع سوم (<span class="math">180&deg; &lt; &alpha; &lt; 270&deg;</span>): هر دو محور افقی و عمودی منفی هستند. پس <span class="math">sin &alpha; &lt; 0</span> و <span class="math">cos &alpha; &lt; 0</span> هستند، در نتیجه حاصل تقسیم آنها یعنی تانژانت و کتانژانت <strong>مثبت</strong> خواهند بود (<span class="math">tan &alpha; &gt; 0</span> و <span class="math">cot &alpha; &gt; 0</span>).
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام اول: محاسبه کسینوس از اتحاد فیثاغورسی</div>
+          <div class="math-block">
+            cos<sup>2</sup>&alpha; = 1 - sin<sup>2</sup>&alpha; = 1 - \left(- <span class="frac"><span class="num">5</span><span class="den">13</span></span>\right)<sup>2</sup> = 1 - <span class="frac"><span class="num">25</span><span class="den">169</span></span> = <span class="frac"><span class="num">169 - 25</span><span class="den">169</span></span> = <span class="frac"><span class="num">144</span><span class="den">169</span></span>
+          </div>
+          چون کمان در ربع سوم است، علامت رادیکال باید حتماً منفی باشد:
+          <div class="math-block">
+            cos &alpha; = - <span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar"><span class="frac"><span class="num">144</span><span class="den">169</span></span></span></span> = - <span class="frac"><span class="num">12</span><span class="den">13</span></span>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام دوم: محاسبه تانژانت و کتانژانت</div>
+          <div class="math-block">
+            tan &alpha; = <span class="frac"><span class="num">sin &alpha;</span><span class="den">cos &alpha;</span></span> = <span class="frac"><span class="num">- 5/13</span><span class="den">- 12/13</span></span> = + <span class="frac"><span class="num">5</span><span class="den">12</span></span>
+          </div>
+          <div class="math-block">
+            cot &alpha; = <span class="frac"><span class="num">1</span><span class="den">tan &alpha;</span></span> = + <span class="frac"><span class="num">12</span><span class="den">5</span></span>
+          </div>
+          نتیجه نهایی: <span class="ans-highlight">cos &alpha; = -12/13 &nbsp;|&nbsp; tan &alpha; = 5/12 &nbsp;|&nbsp; cot &alpha; = 12/5</span>
+        </div>
+
+        <div class="trap-box">
+          <strong>⚠️ دام مصحح نهایی:</strong> اگر دانش‌آموز در مرحله جذرگیری فراموش کند علامت منفی را برای کسینوس بگذارد و بنویسد <span class="math">cos &alpha; = +12/13</span>، نه‌تنها نمره کسینوس بلکه نمره تانژانت و کتانژانت را هم به دلیل غلط شدن علائم از دست خواهد داد!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== QUESTION 5 ==================== -->
+  <div class="q-card">
+    <div class="q-header">
+      <span class="q-title">
+        <span>📝</span>
+        <span>سوال ۵: محاسبه نسبت‌ها از روی تانژانت در ربع چهارم</span>
+      </span>
+      <span class="q-tag tag-final">امتحان نهایی خرداد ۱۴۰۲</span>
+    </div>
+    <div class="q-body">
+      <div class="q-statement">
+        <strong>صورت مسئله:</strong> اگر <span class="math">270&deg; &lt; &alpha; &lt; 360&deg;</span> (انتهای کمان در ناحیه چهارم) و <span class="math">tan &alpha; = - <span class="frac"><span class="num">4</span><span class="den">3</span></span></span> باشد، مقادیر <span class="math">cot &alpha;</span> و <span class="math">cos &alpha;</span> را به دست آورید.
+      </div>
+      <div class="sol-box">
+        <div class="sol-header">
+          <span>✍️</span>
+          <span>پاسخ تشریحی و گام‌به‌گام:</span>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام اول: محاسبه سریع کتانژانت (معکوس تانژانت)</div>
+          کتانژانت بلافاصله از معکوس کردن تانژانت به دست می‌آید:
+          <div class="math-block">
+            cot &alpha; = <span class="frac"><span class="num">1</span><span class="den">tan &alpha;</span></span> = <span class="frac"><span class="num">1</span><span class="den">- 4/3</span></span> = - <span class="frac"><span class="num">3</span><span class="den">4</span></span>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام دوم: محاسبه کسینوس با استفاده از رابطه طلایی تانژانت</div>
+          از رابطه معروف <span class="math">1 + tan<sup>2</sup>&alpha; = <span class="frac"><span class="num">1</span><span class="den">cos<sup>2</sup>&alpha;</span></span></span> استفاده می‌کنیم:
+          <div class="math-block">
+            1 + \left(- <span class="frac"><span class="num">4</span><span class="den">3</span></span>\right)<sup>2</sup> = 1 + <span class="frac"><span class="num">16</span><span class="den">9</span></span> = <span class="frac"><span class="num">9 + 16</span><span class="den">9</span></span> = <span class="frac"><span class="num">25</span><span class="den">9</span></span> = <span class="frac"><span class="num">1</span><span class="den">cos<sup>2</sup>&alpha;</span></span>
+          </div>
+          با معکوس کردن دو طرف تساوی:
+          <div class="math-block">
+            cos<sup>2</sup>&alpha; = <span class="frac"><span class="num">9</span><span class="den">25</span></span>
+          </div>
+          <strong>تحلیل علامت در ناحیه چهارم:</strong> در ربع چهارم، محور <span class="math">x</span> (کسینوس) مثبت است. بنابراین:
+          <div class="math-block">
+            cos &alpha; = + <span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar"><span class="frac"><span class="num">9</span><span class="den">25</span></span></span></span> = + <span class="frac"><span class="num">3</span><span class="den">5</span></span>
+          </div>
+          نتیجه نهایی: <span class="ans-highlight">cot &alpha; = -3/4 &nbsp;|&nbsp; cos &alpha; = +3/5</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== QUESTION 6 ==================== -->
+  <div class="q-card">
+    <div class="q-header">
+      <span class="q-title">
+        <span>🎯</span>
+        <span>سوال ۶: مختصات نقطه انتهای کمان ۲۱۰ درجه روی دایره مثلثاتی</span>
+      </span>
+      <span class="q-tag tag-national">هماهنگ کشوری خرداد ۱۴۰۲</span>
+    </div>
+    <div class="q-body">
+      <div class="q-statement">
+        <strong>صورت مسئله:</strong> اگر <span class="math">cot 210&deg; = <span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar">3</span></span></span> باشد و نقطه <span class="math">P</span> نقطه انتهای کمان روی دایره مثلثاتی متناظر با زاویه <span class="math">210&deg;</span> باشد، مختصات نقطه <span class="math">P</span> را بیابید.
+      </div>
+
+      <div class="sol-box">
+        <div class="two-col-layout">
+          <div>
+            <div class="strategy-box">
+              <strong>💡 تعریف هندسی مختصات نقطه:</strong>
+              روی دایره مثلثاتی واحد، مختصات نقطه <span class="math">P</span> متناظر با زاویه <span class="math">&theta;</span> همواره برابر است با:
+              <div class="math-block" style="margin:4px 0;">
+                P(x, y) = P(cos &theta;, sin &theta;)
+              </div>
+              بنابراین هدف مسئله یافتن <span class="math">cos 210&deg;</span> و <span class="math">sin 210&deg;</span> است.
+            </div>
+
+            <div class="step-item">
+              <div class="step-label">گام اول: زاویه مرجع و موقعیت ربع</div>
+              زاویه <span class="math">210&deg;</span> در <strong>ربع سوم</strong> قرار دارد زیرا:
+              <div class="math-block">
+                210&deg; = 180&deg; + 30&deg;
+              </div>
+              پس زاویه مرجع آن در ربع اول برابر <span class="math">30&deg;</span> است.
+            </div>
+
+            <div class="step-item">
+              <div class="step-label">گام دوم: محاسبه سینوس و کسینوس</div>
+              در ربع سوم هم طول (<span class="math">x</span>) و هم عرض (<span class="math">y</span>) منفی هستند:
+              <div class="math-block">
+                x = cos 210&deg; = - cos 30&deg; = - <span class="frac"><span class="num"><span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar">3</span></span></span><span class="den">2</span></span>
+              </div>
+              <div class="math-block">
+                y = sin 210&deg; = - sin 30&deg; = - <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+              </div>
+              مختصات نهایی نقطه <span class="math">P</span>:
+              <div class="math-block">
+                P(x, y) = P\left(- <span class="frac"><span class="num"><span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar">3</span></span></span><span class="den">2</span></span> , - <span class="frac"><span class="num">1</span><span class="den">2</span></span>\right)
+              </div>
+              <span class="ans-highlight">P(-&radic;3/2, -1/2)</span>
+            </div>
+          </div>
+          <div style="text-align:center;">
+            {angle210_svg}
+          </div>
+        </div>
+
+        <div class="check-box">
+          <strong>🔍 راستی‌آزمایی با فرض مسئله:</strong> 
+          کتانژانت یعنی <span class="math"><span class="frac"><span class="num">cos</span><span class="den">sin</span></span> = <span class="frac"><span class="num">-&radic;3/2</span><span class="den">-1/2</span></span> = <span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar">3</span></span></span> که دقیقاً با صورت سوال مطابقت دارد!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== QUESTION 7 ==================== -->
+  <div class="q-card">
+    <div class="q-header">
+      <span class="q-title">
+        <span>💡</span>
+        <span>سوال ۷: محاسبه عبارت رادیکالی مفهومی با کتانژانت</span>
+      </span>
+      <span class="q-tag tag-concept">تست مفهومی و تله‌دار</span>
+    </div>
+    <div class="q-body">
+      <div class="q-statement">
+        <strong>صورت مسئله:</strong> اگر <span class="math">sin &alpha; = - <span class="frac"><span class="num">1</span><span class="den">5</span></span></span> و <span class="math">&alpha;</span> زاویه‌ای در ربع سوم باشد، حاصل عبارت <span class="math"><span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar">25 - cot<sup>2</sup>&alpha;</span></span></span> را بیابید.
+      </div>
+      <div class="sol-box">
+        <div class="sol-header">
+          <span>✍️</span>
+          <span>پاسخ تشریحی و گام‌به‌گام:</span>
+        </div>
+
+        <div class="strategy-box">
+          <strong>💡 نگاه تیزبینانه طراح:</strong>
+          نیازی نیست کسینوس را جداگانه به دست آورید و کسرها را طولانی تقسیم کنید! یک رابطه مستقیم بین <span class="math">cot<sup>2</sup>&alpha;</span> و <span class="math">sin<sup>2</sup>&alpha;</span> داریم:
+          <span class="math">1 + cot<sup>2</sup>&alpha; = <span class="frac"><span class="num">1</span><span class="den">sin<sup>2</sup>&alpha;</span></span></span>.
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام اول: محاسبه مستقیم مقدار کتانژانت به توان دو</div>
+          <div class="math-block">
+            1 + cot<sup>2</sup>&alpha; = <span class="frac"><span class="num">1</span><span class="den">sin<sup>2</sup>&alpha;</span></span> = <span class="frac"><span class="num">1</span><span class="den">(-1/5)<sup>2</sup></span></span> = <span class="frac"><span class="num">1</span><span class="den">1/25</span></span> = 25
+          </div>
+          بنابراین با انتقال عدد ۱ به طرف دیگر:
+          <div class="math-block">
+            cot<sup>2</sup>&alpha; = 25 - 1 = 24
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام دوم: جایگذاری در عبارت زیر رادیکال</div>
+          <div class="math-block">
+            \text{حاصل عبارت} = <span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar">25 - cot<sup>2</sup>&alpha;</span></span> = <span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar">25 - 24</span></span> = <span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar">1</span></span> = 1
+          </div>
+          نتیجه نهایی: <span class="ans-highlight">حاصل دقیق عبارت برابر عدد ۱ است.</span>
+        </div>
+
+        <div class="trap-box">
+          <strong>⚠️ چرا طراح عدد ۲۵ را انتخاب کرد؟</strong> چون معکوس مربع سینوس دقیقاً <span class="math">25</span> می‌شود و وقتی منهای ۱ می‌شود <span class="math">cot<sup>2</sup>&alpha; = 24</span> می‌گردد، تفاضل زیر رادیکال دقیقاً مربع کامل <span class="math">1</span> را تولید می‌کند! طراح با مهارت این سوال را طراحی کرده است.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== QUESTION 8 ==================== -->
+  <div class="q-card">
+    <div class="q-header">
+      <span class="q-title">
+        <span>⚙️</span>
+        <span>سوال ۸: اثبات اتحاد کسری تانژانت</span>
+      </span>
+      <span class="q-tag tag-book">کتاب درسی و آزمون‌ها</span>
+    </div>
+    <div class="q-body">
+      <div class="q-statement">
+        <strong>صورت مسئله:</strong> درستی اتحاد مثلثاتی زیر را ثابت کنید:
+        <div class="math-block">
+          <span class="frac"><span class="num">2tan &theta;</span><span class="den">1 + tan<sup>2</sup>&theta;</span></span> = 2sin &theta; cos &theta;
+        </div>
+      </div>
+      <div class="sol-box">
+        <div class="sol-header">
+          <span>✍️</span>
+          <span>پاسخ تشریحی و گام‌به‌گام:</span>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام اول: جایگزینی مخرج با معادل فیثاغورسی آن</div>
+          می‌دانیم طبق اتحادهای کتاب درسی: <span class="math">1 + tan<sup>2</sup>&theta; = <span class="frac"><span class="num">1</span><span class="den">cos<sup>2</sup>&theta;</span></span></span>. مخرج طرف چپ را جایگزین می‌کنیم:
+          <div class="math-block">
+            \text{طرف چپ} = <span class="frac"><span class="num">2tan &theta;</span><span class="den"><span class="frac"><span class="num">1</span><span class="den">cos<sup>2</sup>&theta;</span></span></span></span> = 2tan &theta; &times; cos<sup>2</sup>&theta;
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام دوم: بسط تانژانت برحسب سینوس و کسینوس</div>
+          حال به‌جای <span class="math">tan &theta;</span> عبارت <span class="math"><span class="frac"><span class="num">sin &theta;</span><span class="den">cos &theta;</span></span></span> را قرار می‌دهیم:
+          <div class="math-block">
+            = 2 &times; <span class="frac"><span class="num">sin &theta;</span><span class="den">cos &theta;</span></span> &times; cos<sup>2</sup>&theta;
+          </div>
+          یک توان <span class="math">cos &theta;</span> صورت با مخرج ساده می‌شود:
+          <div class="math-block">
+            = 2 &times; sin &theta; &times; cos &theta; = 2sin &theta; cos &theta; = \text{طرف راست} \quad \checkmark
+          </div>
+          <span class="ans-highlight">اتحاد با موفقیت اثبات شد.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== QUESTION 9 ==================== -->
+  <div class="q-card">
+    <div class="q-header">
+      <span class="q-title">
+        <span>🔄</span>
+        <span>سوال ۹: محاسبه سایر نسبت‌های زاویه ۱۳۵ درجه</span>
+      </span>
+      <span class="q-tag tag-book">کتاب درسی صفحه ۴۷</span>
+    </div>
+    <div class="q-body">
+      <div class="q-statement">
+        <strong>صورت مسئله:</strong> اگر <span class="math">sin 135&deg; = <span class="frac"><span class="num"><span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar">2</span></span></span><span class="den">2</span></span></span> باشد، سایر نسبت‌های مثلثاتی زاویه <span class="math">135&deg;</span> (<span class="math">cos 135&deg;</span>، <span class="math">tan 135&deg;</span>، <span class="math">cot 135&deg;</span>) را بیابید.
+      </div>
+      <div class="sol-box">
+        <div class="sol-header">
+          <span>✍️</span>
+          <span>پاسخ تشریحی و گام‌به‌گام:</span>
+        </div>
+
+        <div class="strategy-box">
+          <strong>💡 موقعیت در دایره مثلثاتی:</strong>
+          زاویه <span class="math">135&deg;</span> بین <span class="math">90&deg;</span> و <span class="math">180&deg;</span> است، پس در <strong>ربع دوم</strong> قرار دارد. در ربع دوم فقط سینوس مثبت است، و کسینوس، تانژانت و کتانژانت <strong>منفی</strong> هستند.
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام اول: محاسبه کسینوس از اتحاد فیثاغورسی</div>
+          <div class="math-block">
+            cos<sup>2</sup>135&deg; = 1 - sin<sup>2</sup>135&deg; = 1 - \left(<span class="frac"><span class="num"><span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar">2</span></span></span><span class="den">2</span></span>\right)<sup>2</sup> = 1 - <span class="frac"><span class="num">2</span><span class="den">4</span></span> = 1 - <span class="frac"><span class="num">1</span><span class="den">2</span></span> = <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+          </div>
+          چون زاویه در ربع دوم است، کسینوس منفی است:
+          <div class="math-block">
+            cos 135&deg; = - <span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar"><span class="frac"><span class="num">1</span><span class="den">2</span></span></span></span> = - <span class="frac"><span class="num">1</span><span class="den"><span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar">2</span></span></span></span> = - <span class="frac"><span class="num"><span class="sqrt"><span class="sqrt-sym">&radic;</span><span class="sqrt-bar">2</span></span></span><span class="den">2</span></span>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام دوم: محاسبه تانژانت و کتانژانت</div>
+          <div class="math-block">
+            tan 135&deg; = <span class="frac"><span class="num">sin 135&deg;</span><span class="den">cos 135&deg;</span></span> = <span class="frac"><span class="num">+ &radic;2/2</span><span class="den">- &radic;2/2</span></span> = - 1
+          </div>
+          <div class="math-block">
+            cot 135&deg; = <span class="frac"><span class="num">1</span><span class="den">tan 135&deg;</span></span> = <span class="frac"><span class="num">1</span><span class="den">-1</span></span> = - 1
+          </div>
+          نتیجه نهایی: <span class="ans-highlight">cos 135&deg; = -&radic;2/2 &nbsp;|&nbsp; tan 135&deg; = -1 &nbsp;|&nbsp; cot 135&deg; = -1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== QUESTION 10 ==================== -->
+  <div class="q-card">
+    <div class="q-header">
+      <span class="q-title">
+        <span>✨</span>
+        <span>سوال ۱۰: ساده‌سازی عبارت جبری-مثلثاتی توان‌دار</span>
+      </span>
+      <span class="q-tag tag-concept">تست محاسباتی</span>
+    </div>
+    <div class="q-body">
+      <div class="q-statement">
+        <strong>صورت مسئله:</strong> عبارت مثلثاتی زیر را ساده کنید:
+        <div class="math-block">
+          <span class="frac"><span class="num">cot<sup>2</sup>&beta; &middot; cos<sup>2</sup>&beta;</span><span class="den">tan<sup>2</sup>&beta; &middot; sin<sup>2</sup>&beta;</span></span>
+        </div>
+      </div>
+      <div class="sol-box">
+        <div class="sol-header">
+          <span>✍️</span>
+          <span>پاسخ تشریحی و گام‌به‌گام:</span>
+        </div>
+
+        <div class="strategy-box">
+          <strong>💡 دو روش حل:</strong> می‌توانیم کسر را به حاصل‌ضرب دو کسر تفکیک کنیم و با قوانین پایه‌ای کتانژانت در ۲ ثانیه به جواب برسیم!
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">حل با تفکیک کسرها (سریع‌ترین و زیباترین روش)</div>
+          کسر داده‌شده را به ضرب دو کسر مجزا می‌شکنیم:
+          <div class="math-block">
+            <span class="frac"><span class="num">cot<sup>2</sup>&beta; &middot; cos<sup>2</sup>&beta;</span><span class="den">tan<sup>2</sup>&beta; &middot; sin<sup>2</sup>&beta;</span></span> = \left(<span class="frac"><span class="num">cot<sup>2</sup>&beta;</span><span class="den">tan<sup>2</sup>&beta;</span></span>\right) &times; \left(<span class="frac"><span class="num">cos<sup>2</sup>&beta;</span><span class="den">sin<sup>2</sup>&beta;</span></span>\right)
+          </div>
+          می‌دانیم:
+          <ul style="font-size:8.8pt; padding-right:16px; margin:4px 0;">
+            <li>کسر دوم طبق تعریف دقیقاً کتانژانت به توان دو است: <span class="math"><span class="frac"><span class="num">cos<sup>2</sup>&beta;</span><span class="den">sin<sup>2</sup>&beta;</span></span> = cot<sup>2</sup>&beta;</span></li>
+            <li>در کسر اول، چون <span class="math"><span class="frac"><span class="num">1</span><span class="den">tan<sup>2</sup>&beta;</span></span> = cot<sup>2</sup>&beta;</span> است: <span class="math"><span class="frac"><span class="num">cot<sup>2</sup>&beta;</span><span class="den">tan<sup>2</sup>&beta;</span></span> = cot<sup>2</sup>&beta; &times; cot<sup>2</sup>&beta; = cot<sup>4</sup>&beta;</span></li>
+          </ul>
+          بنابراین با ضرب این دو عامل:
+          <div class="math-block">
+            = cot<sup>4</sup>&beta; &times; cot<sup>2</sup>&beta; = cot<sup>6</sup>&beta;
+          </div>
+          نتیجه نهایی: <span class="ans-highlight">حاصل ساده‌شده عبارت برابر cot<sup>6</sup>&beta; است.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== QUESTION 11 ==================== -->
+  <div class="q-card">
+    <div class="q-header">
+      <span class="q-title">
+        <span>🔎</span>
+        <span>سوال ۱۱: بررسی درستی رابطه مثلثاتی ترکیبی</span>
+      </span>
+      <span class="q-tag tag-book">کتاب درسی</span>
+    </div>
+    <div class="q-body">
+      <div class="q-statement">
+        <strong>صورت مسئله:</strong> درستی رابطهٔ مثلثاتی زیر را بررسی کنید:
+        <div class="math-block">
+          (tan x + cot x)<sup>2</sup> - \left(<span class="frac"><span class="num">1</span><span class="den">sin<sup>2</sup>x</span></span> + <span class="frac"><span class="num">1</span><span class="den">cos<sup>2</sup>x</span></span>\right) = 0
+        </div>
+      </div>
+      <div class="sol-box">
+        <div class="sol-header">
+          <span>✍️</span>
+          <span>پاسخ تشریحی و گام‌به‌گام:</span>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام اول: بسط پرانتز اول با اتحاد مربع دوجمله‌ای</div>
+          <div class="math-block">
+            (tan x + cot x)<sup>2</sup> = tan<sup>2</sup>x + 2(tan x)(cot x) + cot<sup>2</sup>x
+          </div>
+          چون <span class="math">tan x &middot; cot x = 1</span> است:
+          <div class="math-block">
+            = tan<sup>2</sup>x + cot<sup>2</sup>x + 2
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام دوم: بازنویسی پرانتز دوم با اتحادهای فیثاغورسی</div>
+          می‌دانیم طبق روابط کتاب درسی:
+          <div class="math-block">
+            <span class="frac"><span class="num">1</span><span class="den">sin<sup>2</sup>x</span></span> = 1 + cot<sup>2</sup>x \quad , \quad <span class="frac"><span class="num">1</span><span class="den">cos<sup>2</sup>x</span></span> = 1 + tan<sup>2</sup>x
+          </div>
+          پس حاصل جمع داخل پرانتز دوم برابر است با:
+          <div class="math-block">
+            <span class="frac"><span class="num">1</span><span class="den">sin<sup>2</sup>x</span></span> + <span class="frac"><span class="num">1</span><span class="den">cos<sup>2</sup>x</span></span> = (1 + cot<sup>2</sup>x) + (1 + tan<sup>2</sup>x) = tan<sup>2</sup>x + cot<sup>2</sup>x + 2
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام سوم: تفریق دو عبارت و نتیجه‌گیری</div>
+          <div class="math-block">
+            \text{طرف چپ} = (tan<sup>2</sup>x + cot<sup>2</sup>x + 2) - (tan<sup>2</sup>x + cot<sup>2</sup>x + 2) = 0 = \text{طرف راست} \quad \checkmark
+          </div>
+          نتیجه: <span class="ans-highlight">این رابطه یک اتحاد است و همواره درستی آن برقرار می‌باشد.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== QUESTION 12 ==================== -->
+  <div class="q-card">
+    <div class="q-header">
+      <span class="q-title">
+        <span>📐</span>
+        <span>سوال ۱۲: اثبات اتحاد کسری با توان ۳ در مخرج</span>
+      </span>
+      <span class="q-tag tag-book">کتاب درسی و آزمون‌ها</span>
+    </div>
+    <div class="q-body">
+      <div class="q-statement">
+        <strong>صورت مسئله:</strong> اتحاد مثلثاتی زیر را ثابت کنید:
+        <div class="math-block">
+          <span class="frac"><span class="num">1 + cos &theta;</span><span class="den">sin<sup>3</sup>&theta;</span></span> = <span class="frac"><span class="num">1</span><span class="den">sin &theta; (1 - cos &theta;)</span></span>
+        </div>
+      </div>
+      <div class="sol-box">
+        <div class="sol-header">
+          <span>✍️</span>
+          <span>پاسخ تشریحی و گام‌به‌گام:</span>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">روش ضرب در مزدوج از طرف راست</div>
+          طرف راست تساوی را در نظر می‌گیریم:
+          <div class="math-block">
+            \text{طرف راست} = <span class="frac"><span class="num">1</span><span class="den">sin &theta; (1 - cos &theta;)</span></span>
+          </div>
+          برای ایجاد عبارت <span class="math">1 + cos &theta;</span> در صورت، صورت و مخرج را در <span class="math">1 + cos &theta;</span> ضرب می‌کنیم:
+          <div class="math-block">
+            = <span class="frac"><span class="num">1 &times; (1 + cos &theta;)</span><span class="den">sin &theta; (1 - cos &theta;)(1 + cos &theta;)</span></span> = <span class="frac"><span class="num">1 + cos &theta;</span><span class="den">sin &theta; (1 - cos<sup>2</sup>&theta;)</span></span>
+          </div>
+          طبق اتحاد فیثاغورسی مادر، <span class="math">1 - cos<sup>2</sup>&theta; = sin<sup>2</sup>&theta;</span> است:
+          <div class="math-block">
+            = <span class="frac"><span class="num">1 + cos &theta;</span><span class="den">sin &theta; &middot; sin<sup>2</sup>&theta;</span></span> = <span class="frac"><span class="num">1 + cos &theta;</span><span class="den">sin<sup>3</sup>&theta;</span></span> = \text{طرف چپ} \quad \checkmark
+          </div>
+          <span class="ans-highlight">اتحاد با موفقیت اثبات شد.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== QUESTION 13 ==================== -->
+  <div class="q-card">
+    <div class="q-header">
+      <span class="q-title">
+        <span>🎯</span>
+        <span>سوال ۱۳: بررسی تساوی ساده‌ساز کسری</span>
+      </span>
+      <span class="q-tag tag-book">کتاب درسی صفحه ۴۶</span>
+    </div>
+    <div class="q-body">
+      <div class="q-statement">
+        <strong>صورت مسئله:</strong> درستی تساوی زیر را بررسی کنید:
+        <div class="math-block">
+          1 - <span class="frac"><span class="num">sin<sup>2</sup>&theta;</span><span class="den">1 + cos &theta;</span></span> = cos &theta;
+        </div>
+      </div>
+      <div class="sol-box">
+        <div class="sol-header">
+          <span>✍️</span>
+          <span>پاسخ تشریحی و گام‌به‌گام:</span>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام اول: تبدیل صورت کسر به مزدوج</div>
+          می‌دانیم <span class="math">sin<sup>2</sup>&theta; = 1 - cos<sup>2</sup>&theta;</span> است. با تجزیه مزدوج:
+          <div class="math-block">
+            sin<sup>2</sup>&theta; = (1 - cos &theta;)(1 + cos &theta;)
+          </div>
+          جایگذاری در کسر:
+          <div class="math-block">
+            <span class="frac"><span class="num">sin<sup>2</sup>&theta;</span><span class="den">1 + cos &theta;</span></span> = <span class="frac"><span class="num">(1 - cos &theta;)(1 + cos &theta;)</span><span class="den">1 + cos &theta;</span></span> = 1 - cos &theta;
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-label">گام دوم: تفریق از عدد یک</div>
+          <div class="math-block">
+            \text{طرف چپ} = 1 - (1 - cos &theta;) = 1 - 1 + cos &theta; = cos &theta; = \text{طرف راست} \quad \checkmark
+          </div>
+          نتیجه: <span class="ans-highlight">تساوی کاملاً درست و برقرار است.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER NOTE ==================== -->
+  <div style="margin-top:16px; padding:10px 14px; background:#f8fafc; border-radius:8px; border:1px solid #cbd5e1; text-align:center; font-size:8.6pt; color:#475569;">
+    🎯 <strong>توصیه دبیر برای ۲۰ آزمون فردا:</strong>
+    در تمامی سوالات اتحاد، ابتدا مشخص کن کدام طرف شلوغ‌تر است؛ معمولاً ساده‌سازی طرف شلوغ‌تر و تبدیل تانژانت و کتانژانت به سینوس و کسینوس، یا ضرب در مزدوج مخرج، مطمئن‌ترین راه برای رسیدن به جواب نهایی است. موفق باشید! 🌟
+  </div>
+
+</body>
+</html>
+"""
+
+with open(HTML_PATH, "w", encoding="utf-8") as f:
+    f.write(html)
+
+print("HTML written successfully. Converting to PDF with Chromium...")
+
+cmd = [
+    "chromium",
+    "--headless",
+    "--no-sandbox",
+    "--disable-gpu",
+    "--run-all-compositor-stages-before-draw",
+    f"--print-to-pdf={PDF_PATH}",
+    HTML_PATH
+]
+
+res = subprocess.run(cmd, capture_output=True, text=True)
+print("Chromium exit code:", res.returncode)
+if os.path.exists(PDF_PATH):
+    size_kb = os.path.getsize(PDF_PATH) / 1024
+    print(f"SUCCESS: Generated PDF at {PDF_PATH} ({size_kb:.1f} KB)")
+else:
+    print("FAILED:", res.stderr)

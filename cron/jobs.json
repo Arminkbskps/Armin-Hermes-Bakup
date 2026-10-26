@@ -1,0 +1,128 @@
+{
+  "jobs": [
+    {
+      "id": "de62f77c99e2",
+      "name": "hermes-gdrive-backup-6h",
+      "prompt": "Run in terminal: python3 /home/daytona/scripts/hermes_backup.py. The script automatically uploads the backup archive to Google Drive (as a single file or in multiple chunks <=20MB if needed). Your FINAL RESPONSE (in Persian) must report the total archive size, number of parts, and all BACKUP_URL / part links verbatim as clickable links. Copy the URL(s) exactly, never rephrase or shorten them. If the script reports FAILED or prints no BACKUP_URL, report FAILURE explicitly with the error text.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "interval",
+        "minutes": 360,
+        "display": "every 360m"
+      },
+      "schedule_display": "every 360m",
+      "repeat": {
+        "times": null,
+        "completed": 79
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-10-03T14:13:45.040324+00:00",
+      "next_run_at": "2026-10-26T14:45:02.274147+00:00",
+      "last_run_at": "2026-10-26T08:45:02.274147+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "failure_streak": 0,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "6797870527",
+        "chat_name": "Armin",
+        "thread_id": null,
+        "user_id": "6797870527",
+        "scope_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "last_dispatch": {
+        "scheduled_at": "2026-10-26T08:42:50.443392+00:00",
+        "dispatched_at": "2026-10-26T08:43:11.042306+00:00",
+        "lateness_seconds": 20.6,
+        "kind": "on_time"
+      },
+      "fire_claim": null,
+      "last_failure": {
+        "at": "2026-10-17T13:31:13.312259+00:00",
+        "detail": "RuntimeError: HTTP 401: �\b\u0000\u0000\u0000\u0000\u0000\u0000\u0003�VJ-*�/R�Rr\f�T�N�T(J-,�,JMQH�/R(J��/IU\u0000�%&'�\u0016\u0017+�\u0002\u0000�k\u0004�2\u0000\u0000\u0000"
+      },
+      "canonical_completions": [
+        "23aa51fb76a94fadba1bc766fd451742"
+      ]
+    },
+    {
+      "id": "ed637f5bd811",
+      "name": "disk-space-watchdog",
+      "prompt": "Check SSD free space and alert if <= 10% remaining.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": "disk_watchdog.py",
+      "no_agent": true,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "interval",
+        "minutes": 30,
+        "display": "every 30m"
+      },
+      "schedule_display": "every 30m",
+      "repeat": {
+        "times": null,
+        "completed": 828
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-10-06T12:27:07.474669+00:00",
+      "next_run_at": "2026-10-26T13:24:05.321699+00:00",
+      "last_run_at": "2026-10-26T12:54:05.321699+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "failure_streak": 0,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "6797870527",
+        "chat_name": "Armin",
+        "thread_id": null,
+        "user_id": "6797870527",
+        "scope_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "fire_claim": null,
+      "last_dispatch": {
+        "scheduled_at": "2026-10-26T12:53:07.758790+00:00",
+        "dispatched_at": "2026-10-26T12:54:05.266017+00:00",
+        "lateness_seconds": 57.5,
+        "kind": "on_time"
+      },
+      "last_failure": {
+        "at": "2026-10-17T14:30:11.070577+00:00",
+        "detail": "Script not found: /home/daytona/.hermes/scripts/disk_watchdog.py. Cron scripts are looked up only in this profile's folder (/home/daytona/.hermes/scripts); if the job was copied from another profile, copy the script there too, or edit the job with `hermes cron edit`."
+      }
+    }
+  ],
+  "updated_at": "2026-10-26T12:54:05.322158+00:00"
+}

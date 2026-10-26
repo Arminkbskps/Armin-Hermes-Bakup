@@ -1,0 +1,827 @@
+{
+  "version": 1,
+  "installed": {
+    "excalidraw": {
+      "source": "official",
+      "identifier": "official/creative/excalidraw",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:359112274e8262e0",
+      "install_path": "creative/excalidraw",
+      "files": [
+        "SKILL.md",
+        "references/colors.md",
+        "references/dark-mode.md",
+        "references/examples.md",
+        "scripts/upload.py"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-01T16:14:37.417199+00:00",
+      "updated_at": "2026-10-01T16:14:37.417199+00:00"
+    },
+    "sketch": {
+      "source": "official",
+      "identifier": "official/creative/sketch",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:bea886ff483216bf",
+      "install_path": "creative/sketch",
+      "files": [
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-01T16:14:37.434539+00:00",
+      "updated_at": "2026-10-01T16:14:37.434539+00:00"
+    },
+    "polymarket": {
+      "source": "official",
+      "identifier": "official/research/polymarket",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:4154244cbfa32ce4",
+      "install_path": "research/polymarket",
+      "files": [
+        "SKILL.md",
+        "references/api-endpoints.md",
+        "scripts/polymarket.py"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-01T16:14:37.435775+00:00",
+      "updated_at": "2026-10-01T16:14:37.435775+00:00"
+    },
+    "weights-and-biases": {
+      "source": "official",
+      "identifier": "official/mlops/evaluation/weights-and-biases",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:4286e3db3985d52f",
+      "install_path": "mlops/evaluation/weights-and-biases",
+      "files": [
+        "SKILL.md",
+        "references/artifacts.md",
+        "references/integrations.md",
+        "references/sweeps.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-01T16:14:37.437372+00:00",
+      "updated_at": "2026-10-01T16:14:37.437372+00:00"
+    },
+    "llama-cpp": {
+      "source": "official",
+      "identifier": "official/mlops/inference/llama-cpp",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:43a4ec8fb07acce8",
+      "install_path": "mlops/inference/llama-cpp",
+      "files": [
+        "SKILL.md",
+        "references/advanced-usage.md",
+        "references/hub-discovery.md",
+        "references/optimization.md",
+        "references/quantization.md",
+        "references/server.md",
+        "references/troubleshooting.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-01T16:14:37.438298+00:00",
+      "updated_at": "2026-10-01T16:14:37.438298+00:00"
+    },
+    "huggingface-hub": {
+      "source": "official",
+      "identifier": "official/mlops/huggingface-hub",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:55fa8eb6c3b4be8c",
+      "install_path": "mlops/huggingface-hub",
+      "files": [
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-01T16:14:37.439390+00:00",
+      "updated_at": "2026-10-01T16:14:37.439390+00:00"
+    },
+    "concept-diagrams": {
+      "source": "official",
+      "identifier": "official/creative/concept-diagrams",
+      "trust_level": "builtin",
+      "scan_verdict": "caution",
+      "content_hash": "sha256:bf3682a001fd9095",
+      "install_path": "creative/concept-diagrams",
+      "files": [
+        "SKILL.md",
+        "examples/apartment-floor-plan-conversion.md",
+        "examples/automated-password-reset-flow.md",
+        "examples/autonomous-llm-research-agent-flow.md",
+        "examples/banana-journey-tree-to-smoothie.md",
+        "examples/commercial-aircraft-structure.md",
+        "examples/cpu-ooo-microarchitecture.md",
+        "examples/electricity-grid-flow.md",
+        "examples/feature-film-production-pipeline.md",
+        "examples/hospital-emergency-department-flow.md",
+        "examples/ml-benchmark-grouped-bar-chart.md",
+        "examples/place-order-uml-sequence.md",
+        "examples/smart-city-infrastructure.md",
+        "examples/smartphone-layer-anatomy.md",
+        "examples/sn2-reaction-mechanism.md",
+        "examples/wind-turbine-structure.md",
+        "references/dashboard-patterns.md",
+        "references/infrastructure-patterns.md",
+        "references/physical-shape-cookbook.md",
+        "templates/template.html"
+      ],
+      "metadata": {},
+      "scan_provenance": {
+        "bundle_hash": "sha256:bf3682a001fd90955cd1034fcf800e05db74d50b698f08cad08dc8c67b3fc543",
+        "scanner_version": "skills-guard-v7",
+        "source": "official",
+        "source_url": "official/creative/concept-diagrams",
+        "verdict": "caution",
+        "trust_level": "builtin",
+        "findings": [
+          {
+            "pattern_id": "html_comment_injection",
+            "severity": "high",
+            "category": "injection",
+            "file": "examples/automated-password-reset-flow.md",
+            "line": 55,
+            "match": "<!-- D1 · Email in system?  diamond: center=(340,200) hw=100 hh=28 -->",
+            "description": "hidden instructions in HTML comments"
+          },
+          {
+            "pattern_id": "html_comment_injection",
+            "severity": "high",
+            "category": "injection",
+            "file": "examples/automated-password-reset-flow.md",
+            "line": 90,
+            "match": "<!-- ── Center Yes branch: system generates & sends token ── -->",
+            "description": "hidden instructions in HTML comments"
+          },
+          {
+            "pattern_id": "uv_run",
+            "severity": "medium",
+            "category": "supply_chain",
+            "file": "examples/autonomous-llm-research-agent-flow.md",
+            "line": 101,
+            "match": "<text class=\"ts\" x=\"310\" y=\"392\" text-anchor=\"middle\" dominant-baseline=\"central\">uv run train.py (5 min budget)</text>",
+            "description": "uv run (may auto-install unpinned dependencies)"
+          },
+          {
+            "pattern_id": "html_comment_injection",
+            "severity": "high",
+            "category": "injection",
+            "file": "examples/place-order-uml-sequence.md",
+            "line": 79,
+            "match": "<!-- :InventorySystem -->",
+            "description": "hidden instructions in HTML comments"
+          },
+          {
+            "pattern_id": "html_comment_injection",
+            "severity": "high",
+            "category": "injection",
+            "file": "examples/place-order-uml-sequence.md",
+            "line": 96,
+            "match": "<!-- InventorySystem: active from reserveItems → updateStockLevels end -->",
+            "description": "hidden instructions in HTML comments"
+          },
+          {
+            "pattern_id": "html_comment_injection",
+            "severity": "high",
+            "category": "injection",
+            "file": "examples/place-order-uml-sequence.md",
+            "line": 133,
+            "match": "<!-- ⑤ reserveItems(cartItems)  :OrderController → :InventorySystem -->",
+            "description": "hidden instructions in HTML comments"
+          },
+          {
+            "pattern_id": "html_comment_injection",
+            "severity": "high",
+            "category": "injection",
+            "file": "examples/place-order-uml-sequence.md",
+            "line": 137,
+            "match": "<!-- ⑥ « itemsReserved »  :InventorySystem → :OrderController (dashed return) -->",
+            "description": "hidden instructions in HTML comments"
+          },
+          {
+            "pattern_id": "html_comment_injection",
+            "severity": "high",
+            "category": "injection",
+            "file": "examples/place-order-uml-sequence.md",
+            "line": 165,
+            "match": "<!-- ⑨ updateStockLevels()  :OrderController → :InventorySystem -->",
+            "description": "hidden instructions in HTML comments"
+          },
+          {
+            "pattern_id": "html_comment_injection",
+            "severity": "high",
+            "category": "injection",
+            "file": "examples/place-order-uml-sequence.md",
+            "line": 195,
+            "match": "<!-- ⑬ « unavailable »  :InventorySystem → :OrderController (dashed return) -->",
+            "description": "hidden instructions in HTML comments"
+          }
+        ],
+        "rules": [
+          "html_comment_injection",
+          "uv_run"
+        ],
+        "scanned_at": "2026-10-01T16:32:59.881073+00:00",
+        "summary": "concept-diagrams: caution — 9 finding(s) in injection, supply_chain",
+        "fresh": false
+      },
+      "installed_at": "2026-10-01T16:33:17.695056+00:00",
+      "updated_at": "2026-10-01T16:33:17.695056+00:00"
+    },
+    "archify": {
+      "source": "official",
+      "identifier": "official/creative/archify",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:f115d02eb59e2107",
+      "install_path": "creative/archify",
+      "files": [
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-01T17:34:25.711821+00:00",
+      "updated_at": "2026-10-01T17:34:25.711821+00:00"
+    },
+    "system-atlas": {
+      "source": "official",
+      "identifier": "official/creative/system-atlas",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:1fa4b40647bd2daf",
+      "install_path": "creative/system-atlas",
+      "files": [
+        "LICENSE.txt",
+        "SKILL.md",
+        "assets/build.mjs",
+        "assets/data.example.mjs",
+        "assets/template.html",
+        "references/design-language.md",
+        "references/process-and-lessons.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-01T17:34:25.727741+00:00",
+      "updated_at": "2026-10-01T17:34:25.727741+00:00"
+    },
+    "jupyter-notebook": {
+      "source": "official",
+      "identifier": "official/data-science/jupyter-notebook",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:6287f3283889e89d",
+      "install_path": "data-science/jupyter-notebook",
+      "files": [
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-01T17:34:25.728290+00:00",
+      "updated_at": "2026-10-01T17:34:25.728290+00:00"
+    },
+    "research-paper-writing": {
+      "source": "official",
+      "identifier": "official/research/research-paper-writing",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:221e4af6f487fcc6",
+      "install_path": "research/research-paper-writing",
+      "files": [
+        "SKILL.md",
+        "references/autoreason-methodology.md",
+        "references/checklists.md",
+        "references/citation-workflow.md",
+        "references/experiment-patterns.md",
+        "references/human-evaluation.md",
+        "references/paper-types.md",
+        "references/phase5-paper-drafting.md",
+        "references/reviewer-guidelines.md",
+        "references/sources.md",
+        "references/writing-guide.md",
+        "templates/README.md",
+        "templates/aaai2026/README.md",
+        "templates/aaai2026/aaai2026-unified-supp.tex",
+        "templates/aaai2026/aaai2026-unified-template.tex",
+        "templates/aaai2026/aaai2026.bib",
+        "templates/aaai2026/aaai2026.bst",
+        "templates/aaai2026/aaai2026.sty",
+        "templates/acl/README.md",
+        "templates/acl/acl.sty",
+        "templates/acl/acl_latex.tex",
+        "templates/acl/acl_lualatex.tex",
+        "templates/acl/acl_natbib.bst",
+        "templates/acl/anthology.bib.txt",
+        "templates/acl/custom.bib",
+        "templates/acl/formatting.md",
+        "templates/colm2025/README.md",
+        "templates/colm2025/colm2025_conference.bib",
+        "templates/colm2025/colm2025_conference.bst",
+        "templates/colm2025/colm2025_conference.pdf",
+        "templates/colm2025/colm2025_conference.sty",
+        "templates/colm2025/colm2025_conference.tex",
+        "templates/colm2025/fancyhdr.sty",
+        "templates/colm2025/math_commands.tex",
+        "templates/colm2025/natbib.sty",
+        "templates/iclr2026/fancyhdr.sty",
+        "templates/iclr2026/iclr2026_conference.bib",
+        "templates/iclr2026/iclr2026_conference.bst",
+        "templates/iclr2026/iclr2026_conference.pdf",
+        "templates/iclr2026/iclr2026_conference.sty",
+        "templates/iclr2026/iclr2026_conference.tex",
+        "templates/iclr2026/math_commands.tex",
+        "templates/iclr2026/natbib.sty",
+        "templates/icml2026/algorithm.sty",
+        "templates/icml2026/algorithmic.sty",
+        "templates/icml2026/example_paper.bib",
+        "templates/icml2026/example_paper.pdf",
+        "templates/icml2026/example_paper.tex",
+        "templates/icml2026/fancyhdr.sty",
+        "templates/icml2026/icml2026.bst",
+        "templates/icml2026/icml2026.sty",
+        "templates/icml2026/icml_numpapers.pdf",
+        "templates/neurips2025/Makefile",
+        "templates/neurips2025/extra_pkgs.tex",
+        "templates/neurips2025/main.tex",
+        "templates/neurips2025/neurips.sty"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-01T17:34:25.738396+00:00",
+      "updated_at": "2026-10-01T17:34:25.738396+00:00"
+    },
+    "geogebra-diagram-generator": {
+      "source": "clawhub",
+      "identifier": "@gallexy-liu/geogebra-diagram-generator",
+      "trust_level": "community",
+      "scan_verdict": "safe",
+      "content_hash": "sha256:8ac8cc540537182f",
+      "install_path": "geogebra-diagram-generator",
+      "files": [
+        "agents/openai.yaml",
+        "README.md",
+        "references/examples.md",
+        "skill-card.md",
+        "SKILL.md",
+        "_meta.json"
+      ],
+      "metadata": {},
+      "scan_provenance": {
+        "bundle_hash": "sha256:8ac8cc540537182f16a627e5977c3d13bde464528e3fc7bd932998a43f67daee",
+        "scanner_version": "skills-guard-v7",
+        "source": "@gallexy-liu/geogebra-diagram-generator",
+        "source_url": "@gallexy-liu/geogebra-diagram-generator",
+        "verdict": "safe",
+        "trust_level": "community",
+        "findings": [
+          {
+            "pattern_id": "git_clone",
+            "severity": "medium",
+            "category": "supply_chain",
+            "file": "README.md",
+            "line": 57,
+            "match": "git clone https://github.com/gallexy-liu/geogebra-diagram-generator.git $env:USERPROFILE\\.codex\\skills\\geogebra-diagr...",
+            "description": "clones a git repository at runtime"
+          }
+        ],
+        "rules": [
+          "git_clone"
+        ],
+        "scanned_at": "2026-10-05T13:23:47.235293+00:00",
+        "summary": "geogebra-diagram-generator: safe — 1 finding(s) in supply_chain",
+        "fresh": false
+      },
+      "installed_at": "2026-10-05T13:24:15.912257+00:00",
+      "updated_at": "2026-10-05T13:24:15.912257+00:00"
+    },
+    "edu-analytic-geometry": {
+      "source": "skills.sh",
+      "identifier": "skills-sh/wy51ai/edulab/edu-analytic-geometry",
+      "trust_level": "community",
+      "scan_verdict": "safe",
+      "content_hash": "sha256:141b4b2c272d0927",
+      "install_path": "edu-analytic-geometry",
+      "files": [
+        "SKILL.md",
+        "lib/analytic_kernel.py",
+        "lib/conics.py",
+        "references/conventions.md",
+        "references/problem-schema.md",
+        "scripts/generate.py",
+        "template/board.html"
+      ],
+      "metadata": {
+        "source_url": "https://github.com/wy51ai/edulab/tree/8f510e3ca26a41e8196e1d975b557a4f586fb551/skills/edu-analytic-geometry",
+        "source_revision": "8f510e3ca26a41e8196e1d975b557a4f586fb551",
+        "detail_url": "https://skills.sh/wy51ai/edulab/edu-analytic-geometry",
+        "repo_url": "https://github.com/wy51ai/edulab"
+      },
+      "scan_provenance": {
+        "bundle_hash": "sha256:141b4b2c272d0927efbe6e551b86b1a734e8e4ba47931f50947de50035bfe90d",
+        "scanner_version": "skills-guard-v7",
+        "source": "skills-sh/wy51ai/edulab/edu-analytic-geometry",
+        "source_url": "https://github.com/wy51ai/edulab/tree/8f510e3ca26a41e8196e1d975b557a4f586fb551/skills/edu-analytic-geometry",
+        "verdict": "safe",
+        "trust_level": "community",
+        "findings": [
+          {
+            "pattern_id": "unpinned_pip_install",
+            "severity": "medium",
+            "category": "supply_chain",
+            "file": "SKILL.md",
+            "line": 36,
+            "match": "（`python3 -m pip install <库名>`）或换一个已装该库的解释器；**不要未经询问直接装**。",
+            "description": "pip install without version pinning"
+          }
+        ],
+        "rules": [
+          "unpinned_pip_install"
+        ],
+        "scanned_at": "2026-10-05T13:24:21.197086+00:00",
+        "summary": "edu-analytic-geometry: safe — 1 finding(s) in supply_chain",
+        "fresh": true
+      },
+      "installed_at": "2026-10-05T13:24:21.202795+00:00",
+      "updated_at": "2026-10-05T13:24:21.202795+00:00"
+    },
+    "edu-solid-geometry": {
+      "source": "skills.sh",
+      "identifier": "skills-sh/wy51ai/edulab/edu-solid-geometry",
+      "trust_level": "community",
+      "scan_verdict": "safe",
+      "content_hash": "sha256:76340074802fe254",
+      "install_path": "edu-solid-geometry",
+      "files": [
+        "SKILL.md",
+        "lib/bodies.py",
+        "lib/geometry_kernel.py",
+        "references/conventions.md",
+        "references/problem-schema.md"
+      ],
+      "metadata": {
+        "source_url": "https://github.com/wy51ai/edulab/skills/edu-solid-geometry",
+        "source_revision": "",
+        "detail_url": "https://skills.sh/wy51ai/edulab/edu-solid-geometry",
+        "repo_url": "https://github.com/wy51ai/edulab"
+      },
+      "scan_provenance": {
+        "bundle_hash": "sha256:76340074802fe254be5f0912a78417ff69f3ebbb159658fdc52f81dc03081d2e",
+        "scanner_version": "skills-guard-v7",
+        "source": "skills-sh/wy51ai/edulab/edu-solid-geometry",
+        "source_url": "https://github.com/wy51ai/edulab/skills/edu-solid-geometry",
+        "verdict": "safe",
+        "trust_level": "community",
+        "findings": [
+          {
+            "pattern_id": "unpinned_pip_install",
+            "severity": "medium",
+            "category": "supply_chain",
+            "file": "SKILL.md",
+            "line": 26,
+            "match": "得到同意后再帮忙安装（`python3 -m pip install <库名>`），或换一个已装该库的解释器；**不要未经询问直接装**。",
+            "description": "pip install without version pinning"
+          }
+        ],
+        "rules": [
+          "unpinned_pip_install"
+        ],
+        "scanned_at": "2026-10-05T13:24:30.933762+00:00",
+        "summary": "edu-solid-geometry: safe — 1 finding(s) in supply_chain",
+        "fresh": true
+      },
+      "installed_at": "2026-10-05T13:24:30.939399+00:00",
+      "updated_at": "2026-10-05T13:24:30.939399+00:00"
+    },
+    "auto-geogebra": {
+      "source": "clawhub",
+      "identifier": "@zhjx19/auto-geogebra",
+      "trust_level": "community",
+      "scan_verdict": "safe",
+      "content_hash": "sha256:fc0e25fd3ec27212",
+      "install_path": "auto-geogebra",
+      "files": [
+        "assets/make-demo-gif.py",
+        "assets/README.md",
+        "data/commands-index.json",
+        "data/zh-command-aliases.json",
+        "examples/demo1-derivative-definition.txt",
+        "examples/demo2-linear-transform.txt",
+        "examples/demo3-sphere-cross-section.txt",
+        "examples/demo4-button-secant.scripts.json",
+        "examples/demo4-button-secant.txt",
+        "examples/demo5-polygon-circle.scripts.json",
+        "examples/demo5-polygon-circle.txt",
+        "examples/demo6-taylor.scripts.json",
+        "examples/demo6-taylor.txt",
+        "examples/demo7-coin-toss.scripts.json",
+        "examples/demo7-coin-toss.txt",
+        "examples/README.md",
+        "LICENSE",
+        "README.en.md",
+        "README.md",
+        "references/anti-patterns.md",
+        "references/command-validation.md",
+        "references/course-routing.md",
+        "references/interaction-patterns.md",
+        "references/patterns.md",
+        "references/workflow.md",
+        "scripts/build_index.py",
+        "scripts/smoke_test.py",
+        "scripts/validate_commands.py",
+        "scripts/validate_types.py",
+        "skill-card.md",
+        "SKILL.md",
+        "test-prompts.json",
+        "tools/ggb-export/example-buttons.scripts.json",
+        "tools/ggb-export/example-buttons.txt",
+        "tools/ggb-export/example-tangent.txt",
+        "tools/ggb-export/export_ggb.mjs",
+        "tools/ggb-export/ggb_patch.py",
+        "tools/ggb-export/page.html",
+        "tools/ggb-export/readme.md",
+        "tools/ggb-export/verify_ggb.py",
+        "_meta.json"
+      ],
+      "metadata": {},
+      "scan_provenance": {
+        "bundle_hash": "sha256:fc0e25fd3ec272127540acfa07be560e7aaf5df6f3d4d0ae325d5ae478af32c5",
+        "scanner_version": "skills-guard-v7",
+        "source": "@zhjx19/auto-geogebra",
+        "source_url": "@zhjx19/auto-geogebra",
+        "verdict": "safe",
+        "trust_level": "community",
+        "findings": [
+          {
+            "pattern_id": "oversized_file",
+            "severity": "medium",
+            "category": "structural",
+            "file": "data/commands-index.json",
+            "line": 0,
+            "match": "435KB",
+            "description": "file is 435KB (limit: 256KB)"
+          },
+          {
+            "pattern_id": "hex_encoded_string",
+            "severity": "medium",
+            "category": "obfuscation",
+            "file": "scripts/smoke_test.py",
+            "line": 242,
+            "match": "rep = run(L1, stdin_bytes=b\"\\xef\\xbb\\xbf\" + stdin_ascii.encode(\"utf-8\"))",
+            "description": "hex-encoded string (possible obfuscation)"
+          },
+          {
+            "pattern_id": "hex_encoded_string",
+            "severity": "medium",
+            "category": "obfuscation",
+            "file": "scripts/smoke_test.py",
+            "line": 268,
+            "match": "f.write(b\"\\xef\\xbb\\xbf\" + \"# BOM 样例\\na = Slider(-1, 1, 0.1)\\n\".encode(\"utf-8\"))",
+            "description": "hex-encoded string (possible obfuscation)"
+          },
+          {
+            "pattern_id": "python_subprocess",
+            "severity": "medium",
+            "category": "execution",
+            "file": "scripts/smoke_test.py",
+            "line": 179,
+            "match": "proc = subprocess.run(cmd, stdin=subprocess.DEVNULL, **common)",
+            "description": "Python subprocess execution"
+          },
+          {
+            "pattern_id": "python_subprocess",
+            "severity": "medium",
+            "category": "execution",
+            "file": "scripts/smoke_test.py",
+            "line": 181,
+            "match": "proc = subprocess.run(cmd, input=stdin_bytes, **common)",
+            "description": "Python subprocess execution"
+          },
+          {
+            "pattern_id": "hex_encoded_string",
+            "severity": "medium",
+            "category": "obfuscation",
+            "file": "scripts/validate_commands.py",
+            "line": 38,
+            "match": "if raw.startswith(b\"\\xef\\xbb\\xbf\"):",
+            "description": "hex-encoded string (possible obfuscation)"
+          },
+          {
+            "pattern_id": "hex_encoded_string",
+            "severity": "medium",
+            "category": "obfuscation",
+            "file": "scripts/validate_types.py",
+            "line": 43,
+            "match": "if raw.startswith(b\"\\xef\\xbb\\xbf\"):",
+            "description": "hex-encoded string (possible obfuscation)"
+          }
+        ],
+        "rules": [
+          "hex_encoded_string",
+          "oversized_file",
+          "python_subprocess"
+        ],
+        "scanned_at": "2026-10-05T13:24:45.158532+00:00",
+        "summary": "auto-geogebra: safe — 7 finding(s) in execution, obfuscation, structural",
+        "fresh": true
+      },
+      "installed_at": "2026-10-05T13:24:45.163689+00:00",
+      "updated_at": "2026-10-05T13:24:45.163689+00:00"
+    },
+    "sympy": {
+      "source": "skills.sh",
+      "identifier": "skills-sh/k-dense-ai/scientific-agent-skills/sympy",
+      "trust_level": "community",
+      "scan_verdict": "safe",
+      "content_hash": "sha256:6c6fc2684669c740",
+      "install_path": "sympy",
+      "files": [
+        "SKILL.md",
+        "references/advanced-topics.md",
+        "references/code-generation-printing.md",
+        "references/core-capabilities.md",
+        "references/core_capabilities.md",
+        "references/matrices-linear-algebra.md",
+        "references/physics-mechanics.md",
+        "references/review.md"
+      ],
+      "metadata": {
+        "source_url": "https://github.com/k-dense-ai/scientific-agent-skills/tree/92ace75ac21efe19a620434e0ca4e356081fe807/skills/sympy",
+        "source_revision": "92ace75ac21efe19a620434e0ca4e356081fe807",
+        "detail_url": "https://skills.sh/k-dense-ai/scientific-agent-skills/sympy",
+        "repo_url": "https://github.com/k-dense-ai/scientific-agent-skills"
+      },
+      "scan_provenance": {
+        "bundle_hash": "sha256:6c6fc2684669c74090006e2c654ff8cad071077a13599482bf46d885300ec9b8",
+        "scanner_version": "skills-guard-v7",
+        "source": "skills-sh/k-dense-ai/scientific-agent-skills/sympy",
+        "source_url": "https://github.com/k-dense-ai/scientific-agent-skills/tree/92ace75ac21efe19a620434e0ca4e356081fe807/skills/sympy",
+        "verdict": "safe",
+        "trust_level": "community",
+        "findings": [
+          {
+            "pattern_id": "unpinned_pip_install",
+            "severity": "medium",
+            "category": "supply_chain",
+            "file": "SKILL.md",
+            "line": 33,
+            "match": "uv pip install numpy scipy matplotlib",
+            "description": "pip install without version pinning"
+          },
+          {
+            "pattern_id": "allowed_tools_field",
+            "severity": "low",
+            "category": "privilege_escalation",
+            "file": "SKILL.md",
+            "line": 5,
+            "match": "allowed-tools: Read Write Edit Bash",
+            "description": "skill declares allowed-tools (standard frontmatter; informational)"
+          }
+        ],
+        "rules": [
+          "allowed_tools_field",
+          "unpinned_pip_install"
+        ],
+        "scanned_at": "2026-10-05T13:24:57.710867+00:00",
+        "summary": "sympy: safe — 2 finding(s) in privilege_escalation, supply_chain",
+        "fresh": true
+      },
+      "installed_at": "2026-10-05T13:24:57.715397+00:00",
+      "updated_at": "2026-10-05T13:24:57.715397+00:00"
+    },
+    "mathgraphs": {
+      "source": "clawhub",
+      "identifier": "@architectds/mathgraphs",
+      "trust_level": "community",
+      "scan_verdict": "safe",
+      "content_hash": "sha256:50c62cc8665159b9",
+      "install_path": "mathgraphs",
+      "files": [
+        "skill-card.md",
+        "SKILL.md",
+        "_meta.json"
+      ],
+      "metadata": {},
+      "scan_provenance": {
+        "bundle_hash": "sha256:50c62cc8665159b923301a518018c60ff08e05bb27784160a77c3c98351f73d4",
+        "scanner_version": "skills-guard-v7",
+        "source": "@architectds/mathgraphs",
+        "source_url": "@architectds/mathgraphs",
+        "verdict": "safe",
+        "trust_level": "community",
+        "findings": [],
+        "rules": [],
+        "scanned_at": "2026-10-05T13:26:11.829410+00:00",
+        "summary": "mathgraphs: clean scan, no threats detected",
+        "fresh": true
+      },
+      "installed_at": "2026-10-05T13:26:11.838116+00:00",
+      "updated_at": "2026-10-05T13:26:11.838116+00:00"
+    },
+    "hyperliquid": {
+      "source": "official",
+      "identifier": "official/blockchain/hyperliquid",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:4f133026740e6644",
+      "install_path": "blockchain/hyperliquid",
+      "files": [
+        "SKILL.md",
+        "scripts/hyperliquid_client.py"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-26T11:40:41.360859+00:00",
+      "updated_at": "2026-10-26T11:40:41.360859+00:00"
+    },
+    "3-statement-model": {
+      "source": "official",
+      "identifier": "official/finance/3-statement-model",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:34c5fdbb324fe927",
+      "install_path": "finance/3-statement-model",
+      "files": [
+        "SKILL.md",
+        "references/formatting.md",
+        "references/formulas.md",
+        "references/sec-filings.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-26T11:40:41.389061+00:00",
+      "updated_at": "2026-10-26T11:40:41.389061+00:00"
+    },
+    "comps-analysis": {
+      "source": "official",
+      "identifier": "official/finance/comps-analysis",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:80c2017982de5ed0",
+      "install_path": "finance/comps-analysis",
+      "files": [
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-26T11:40:41.389827+00:00",
+      "updated_at": "2026-10-26T11:40:41.389827+00:00"
+    },
+    "dcf-model": {
+      "source": "official",
+      "identifier": "official/finance/dcf-model",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:d9cc9947aa0e079a",
+      "install_path": "finance/dcf-model",
+      "files": [
+        "SKILL.md",
+        "TROUBLESHOOTING.md",
+        "requirements.txt",
+        "scripts/validate_dcf.py"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-26T11:40:41.391036+00:00",
+      "updated_at": "2026-10-26T11:40:41.391036+00:00"
+    },
+    "stocks": {
+      "source": "official",
+      "identifier": "official/finance/stocks",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:29f9b8402a65ffe2",
+      "install_path": "finance/stocks",
+      "files": [
+        "SKILL.md",
+        "scripts/stocks_client.py"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-10-26T11:40:41.392277+00:00",
+      "updated_at": "2026-10-26T11:40:41.392277+00:00"
+    }
+  }
+}

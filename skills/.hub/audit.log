@@ -1,0 +1,8 @@
+2026-10-01T16:33:17Z INSTALL concept-diagrams official:builtin caution sha256:bf3682a001fd9095
+2026-10-05T13:24:15Z INSTALL geogebra-diagram-generator clawhub:community safe sha256:8ac8cc540537182f
+2026-10-05T13:24:21Z INSTALL edu-analytic-geometry skills.sh:community safe sha256:141b4b2c272d0927
+2026-10-05T13:24:30Z INSTALL edu-solid-geometry skills.sh:community safe sha256:76340074802fe254
+2026-10-05T13:24:45Z INSTALL auto-geogebra clawhub:community safe sha256:fc0e25fd3ec27212
+2026-10-05T13:24:57Z INSTALL sympy skills.sh:community safe sha256:6c6fc2684669c740
+2026-10-05T13:25:05Z BLOCKED mathmodel-figure-templates skills.sh:community caution 25_findings
+2026-10-05T13:26:11Z INSTALL mathgraphs clawhub:community safe sha256:50c62cc8665159b9

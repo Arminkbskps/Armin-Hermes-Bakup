@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 260" width="100%" height="220" style="background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0;">
+  <defs>
+    <linearGradient id="riverGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#bfdbfe" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#93c5fd" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#bfdbfe" stop-opacity="0.6"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0284c7" />
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#e11d48" />
+    </marker>
+  </defs>
+
+  <!-- River Water -->
+  <rect x="20" y="50" width="500" height="110" fill="url(#riverGrad)" rx="6"/>
+  <!-- Water wave lines -->
+  <path d="M 40,75 Q 80,68 120,75 T 200,75 T 280,75 T 360,75 T 440,75" fill="none" stroke="#60a5fa" stroke-width="2" opacity="0.6"/>
+  <path d="M 60,115 Q 100,108 140,115 T 220,115 T 300,115 T 380,115 T 460,115" fill="none" stroke="#60a5fa" stroke-width="2" opacity="0.6"/>
+
+  <!-- Bank Borders -->
+  <line x1="20" y1="50" x2="520" y2="50" stroke="#047857" stroke-width="4" stroke-dasharray="8 4"/>
+  <line x1="20" y1="160" x2="520" y2="160" stroke="#047857" stroke-width="4"/>
+  
+  <text x="35" y="42" font-family="Vazirmatn, sans-serif" font-size="12" fill="#047857" font-weight="bold">ساحل روبه‌رو (محل قرارگیری نقطه A)</text>
+  <text x="35" y="180" font-family="Vazirmatn, sans-serif" font-size="12" fill="#047857" font-weight="bold">ساحل مبدأ (مسیر حرکت ناظر از C به B)</text>
+
+  <!-- Points & Triangle -->
+  <!-- Point A (top bank) -->
+  <circle cx="100" cy="50" r="5" fill="#e11d48"/>
+  <text x="92" y="35" font-family="Cambria, serif" font-size="16" font-weight="bold" fill="#e11d48">A</text>
+
+  <!-- Point C (bottom bank, directly opposite A) -->
+  <circle cx="100" cy="160" r="5" fill="#1e293b"/>
+  <text x="88" y="185" font-family="Cambria, serif" font-size="16" font-weight="bold" fill="#1e293b">C</text>
+
+  <!-- Point B (bottom bank, 200m to the right) -->
+  <circle cx="420" cy="160" r="5" fill="#1e293b"/>
+  <text x="425" y="185" font-family="Cambria, serif" font-size="16" font-weight="bold" fill="#1e293b">B</text>
+
+  <!-- Right angle at C -->
+  <path d="M 100,145 L 115,145 L 115,160" fill="none" stroke="#e11d48" stroke-width="2"/>
+  <circle cx="107" cy="152" r="1.5" fill="#e11d48"/>
+
+  <!-- Line AC (River Width, Unknown) -->
+  <line x1="100" y1="50" x2="100" y2="160" stroke="#e11d48" stroke-width="2.5" stroke-dasharray="5 3"/>
+  
+  <!-- Dimension Label AC -->
+  <line x1="65" y1="55" x2="65" y2="155" stroke="#e11d48" stroke-width="1.5" marker-start="url(#arrowRed)" marker-end="url(#arrowRed)"/>
+  <text x="30" y="110" font-family="Vazirmatn, sans-serif" font-size="13" font-weight="bold" fill="#e11d48">عرض رودخانه d = ?</text>
+
+  <!-- Line BC (Bank Distance = 200m) -->
+  <line x1="100" y1="160" x2="420" y2="160" stroke="#0284c7" stroke-width="3"/>
+  <line x1="105" y1="210" x2="415" y2="210" stroke="#0284c7" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="220" y="230" font-family="Vazirmatn, sans-serif" font-size="14" font-weight="bold" fill="#0284c7" text-anchor="middle">مسیر حرکت روی ساحل = ۲۰۰ متر (BC = 200 m)</text>
+
+  <!-- Hypotenuse AB (Line of sight) -->
+  <line x1="100" y1="50" x2="420" y2="160" stroke="#475569" stroke-width="2"/>
+  
+  <!-- Angle at B (20 deg) -->
+  <path d="M 370,160 A 50 50 0 0 0 380,146" fill="none" stroke="#d97706" stroke-width="2.5"/>
+  <text x="350" y="152" font-family="Vazirmatn, sans-serif" font-size="13" font-weight="bold" fill="#d97706">20°</text>
+  <text x="435" y="145" font-family="Vazirmatn, sans-serif" font-size="11" fill="#475569">زاویه دید ناظر</text>
+</svg>

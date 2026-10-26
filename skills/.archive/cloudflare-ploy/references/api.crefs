@@ -1,0 +1,46 @@
+# Cloudflare API Reference
+
+## Auth
+- **Global API Key**: `dash.cloudflare.ae/profile/api-keys`
+- Email: exact from dashboard
+- Headers: `X-Auth-Email` + `X-Auth-Key`
+
+## Test Auth
+```bash
+curl -s --noproxy '*' "https://api.cloudflare.com/client/v4/user" \
+  -H "X-Auth-Email: EMAIL" \
+  -H "X-Auth-Key: API_KEY"
+```
+
+## Key Endpoints
+| Service | Endpoint |
+|---------|----------|
+| User | `GET /client/v4/user` |
+| D1 DB | `POST /client/v4/accounts/{id}/d1/databases` |
+| R2 | `POST /client/v4/accounts/{id}/r2/buckets` |
+| Workers | `GET /client/v4/accounts/{id}/workers/scripts` |
+| Pages | `GET /client/v4/accounts/{id}/pages/projects` |
+
+## Create D1
+```bash
+curl -s -X POST "https://api.cloudflare.com/client/v4/accounts/{ID}/d1/databases" \
+  -H "X-Auth-Email: {EMAIL}" -H "X-Auth-Key: {KEY}" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "db-name"}'
+```
+
+## Create R2 Bucket
+```bash
+curl -s -X POST "https://api.cloudflare.com/client/v4/accounts/{ID}/r2/buckets" \
+  -H "X-Auth-Email: {EMAIL}" -H "X-Auth-Key: {KEY}" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "bucket-name"}'
+```
+
+## Error Codes
+| Code | Meaning |
+|------|---------|
+| 9109 | Invalid token |
+| 9100 | Auth failed |
+| 10000 | Auth error (account ID mismatch) |
+| 7003 | Bad endpoint path |

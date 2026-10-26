@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 380" width="100%" height="280" style="background:#ffffff; border-radius:8px; border:1px solid #cbd5e1;">
+  <defs>
+    <marker id="axisArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#334155" />
+    </marker>
+  </defs>
+
+  <!-- Coordinate Axes -->
+  <line x1="30" y1="190" x2="430" y2="190" stroke="#334155" stroke-width="1.8" marker-end="url(#axisArrow)"/>
+  <line x1="230" y1="350" x2="230" y2="30" stroke="#334155" stroke-width="1.8" marker-end="url(#axisArrow)"/>
+  
+  <!-- Axis Labels -->
+  <text x="435" y="195" font-family="Vazirmatn, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">x (cos)</text>
+  <text x="235" y="25" font-family="Vazirmatn, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">y (sin)</text>
+  <text x="218" y="205" font-family="Cambria, serif" font-size="12" fill="#64748b">O(0,0)</text>
+
+  <!-- Unit Circle (R = 120) -->
+  <circle cx="230" cy="190" r="120" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+  
+  <!-- Boundary Points -->
+  <circle cx="350" cy="190" r="3.5" fill="#2563eb"/>
+  <text x="355" y="180" font-family="Cambria, serif" font-size="11" font-weight="bold" fill="#2563eb">(1, 0) | 0°</text>
+
+  <circle cx="230" cy="70" r="3.5" fill="#2563eb"/>
+  <text x="235" y="65" font-family="Cambria, serif" font-size="11" font-weight="bold" fill="#2563eb">(0, 1) | 90°</text>
+
+  <circle cx="110" cy="190" r="3.5" fill="#2563eb"/>
+  <text x="50" y="180" font-family="Cambria, serif" font-size="11" font-weight="bold" fill="#2563eb">180° | (-1, 0)</text>
+
+  <circle cx="230" cy="310" r="3.5" fill="#2563eb"/>
+  <text x="235" y="328" font-family="Cambria, serif" font-size="11" font-weight="bold" fill="#2563eb">(0, -1) | 270°</text>
+
+  <!-- Quadrant Badges -->
+  <!-- Quadrant I -->
+  <rect x="260" y="90" width="135" height="75" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+  <text x="270" y="110" font-family="Vazirmatn, sans-serif" font-size="12" font-weight="bold" fill="#166534">ربع اول (0° تا 90°)</text>
+  <text x="270" y="128" font-family="Vazirmatn, sans-serif" font-size="11" fill="#15803d">کد هستک: «هـ» = همه مثبت</text>
+  <text x="270" y="145" font-family="Cambria, serif" font-size="11" font-weight="bold" fill="#166534">sin&gt;0, cos&gt;0, tan&gt;0, cot&gt;0</text>
+
+  <!-- Quadrant II -->
+  <rect x="65" y="90" width="140" height="75" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="75" y="110" font-family="Vazirmatn, sans-serif" font-size="12" font-weight="bold" fill="#1e40af">ربع دوم (90° تا 180°)</text>
+  <text x="75" y="128" font-family="Vazirmatn, sans-serif" font-size="11" fill="#1d4ed8">کد هستک: «س» = فقط سینوس +</text>
+  <text x="75" y="145" font-family="Cambria, serif" font-size="11" font-weight="bold" fill="#1e40af">sin&gt;0 | cos&lt;0, tan&lt;0, cot&lt;0</text>
+
+  <!-- Quadrant III -->
+  <rect x="65" y="215" width="140" height="75" rx="6" fill="#fefce8" stroke="#fde047" stroke-width="1.2"/>
+  <text x="75" y="235" font-family="Vazirmatn, sans-serif" font-size="12" font-weight="bold" fill="#854d0e">ربع سوم (180° تا 270°)</text>
+  <text x="75" y="253" font-family="Vazirmatn, sans-serif" font-size="11" fill="#a16207">کد هستک: «ت» = تانژانت و کتانژانت +</text>
+  <text x="75" y="270" font-family="Cambria, serif" font-size="11" font-weight="bold" fill="#854d0e">tan&gt;0, cot&gt;0 | sin&lt;0, cos&lt;0</text>
+
+  <!-- Quadrant IV -->
+  <rect x="260" y="215" width="135" height="75" rx="6" fill="#fdf2f8" stroke="#f472b6" stroke-width="1.2"/>
+  <text x="270" y="235" font-family="Vazirmatn, sans-serif" font-size="12" font-weight="bold" fill="#9d174d">ربع چهارم (270° تا 360°)</text>
+  <text x="270" y="253" font-family="Vazirmatn, sans-serif" font-size="11" fill="#be185d">کد هستک: «ک» = فقط کسینوس +</text>
+  <text x="270" y="270" font-family="Cambria, serif" font-size="11" font-weight="bold" fill="#9d174d">cos&gt;0 | sin&lt;0, tan&lt;0, cot&lt;0</text>
+</svg>
