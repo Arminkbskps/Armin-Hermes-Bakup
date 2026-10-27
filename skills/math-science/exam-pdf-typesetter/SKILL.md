@@ -1,7 +1,7 @@
 ---
 name: exam-pdf-typesetter
 description: "Use when typesetting Persian STEM exams and test booklets."
-version: 1.1.0
+version: 1.2.0
 author: Armin & Hermes
 license: MIT
 platforms: [linux, macos, windows]
@@ -21,8 +21,14 @@ Typeset publication-quality Persian multiple-choice and descriptive STEM exams (
 - **Question Format**: Bold Persian question number, clear stem, aligned four choices (۱) (۲) (۳) (۴).
 - **Math & Formulas**: Typst math mode ($...$) or clean rendered HTML/CSS fractions (see `references/html_math_css_template.md`).
 - **Unicode Superscripts Over HTML `<sup>`**: In flexbox math containers (`display: inline-flex`), Chromium's PDF renderer flattens `<sup>` tags to the baseline, rendering expressions like `(3 tan α + 2)²` as `(3 tan α + 2)2=`. Always use true Unicode superscript glyphs (`²`, `³`, `⁴`, `⁶`, `⁰`, `¹`) for numerical exponents.
-- **Enforced Anti-Raw-LaTeX & Entity Pre-Flight Gate**: When using HTML-based math rendering, NEVER allow raw LaTeX control sequences (`\text{...}`, `\text{LHS}`, `\text{RHS}`, `\quad`, `\checkmark`, `\left`, `\right`, `\implies`, `\times`) to leak into the HTML body. Use valid standard HTML entities (`&times;`, `&radic;`, `&#10003;`, `&rArr;` or literal `⇒`) and natural Persian text (`طرف اول:`, `طرف دوم`, `✓ (حکم ثابت شد)`). **CRITICAL TRAP**: Never use `&implies;` — it is not a valid HTML entity and renders literally as `&implies;` in the output; use `&rArr;` or Unicode `⇒`.
-  Before and after compiling, MUST execute pre-flight and post-build assertions:
+- **Strict Prohibition of HTML Entities in Math Templates**: Never use HTML named entities (such as `&implies;`, `&lpar;`, `&rpar;`, `&alpha;`, `&theta;`, `&minus;`, etc.) in HTML math generation. Many entity names are non-standard, unhandled by rendering engines, or fail silently in headless Chromium, leaking literal text like `&implies;` directly into the student booklet.
+  ALWAYS use direct UTF-8 Unicode characters:
+  - Arrows & Relations: `⇒`, `→`, `⇔` (never `&implies;` or `&rArr;`)
+  - Parentheses: `(`, `)` (never `&lpar;` or `&rpar;`)
+  - Greek letters: `α`, `β`, `θ`, `π` (never `&alpha;` or `&theta;`)
+  - Operators & Math signs: `−` (true minus U+2212), `×`, `÷`, `·`, `±`, `√`, `∠`, `°`
+- **Enforced Anti-Raw-LaTeX & Entity Pre-Flight Gate**: When using HTML-based math rendering, NEVER allow raw LaTeX control sequences (`\text{...}`, `\text{LHS}`, `\text{RHS}`, `\quad`, `\checkmark`, `\left`, `\right`, `\implies`, `\times`) to leak into the HTML body. Use natural Persian text (`طرف اول:`, `طرف دوم`, `✓ (حکم ثابت شد)`).
+  Before delivering any PDF to the user, MUST execute pre-flight and post-build assertions:
   ```bash
   python3 -c "
   import re, html, pypdf
@@ -30,18 +36,26 @@ Typeset publication-quality Persian multiple-choice and descriptive STEM exams (
   t = open('doc.html').read()
   raw_macros = re.findall(r'\\\\[a-zA-Z]+', t)
   assert not raw_macros, f'Forbidden raw LaTeX macros: {set(raw_macros)}'
-  for ent in set(re.findall(r'&[a-zA-Z0-9#]+;', t)):
-      assert html.unescape(ent) != ent, f'Invalid HTML entity: {ent}'
+  raw_ents = re.findall(r'&[a-zA-Z0-9#]+;', t)
+  assert not raw_ents, f'Forbidden HTML entities found (use direct Unicode): {set(raw_ents)}'
   
   # 2. PDF text verification (after chromium compile)
   reader = pypdf.PdfReader('doc.pdf')
   pdf_text = ''.join(p.extract_text() or '' for p in reader.pages)
-  assert '&implies;' not in pdf_text, 'Unescaped &implies; found in PDF'
+  assert '&' not in pdf_text, 'Unescaped & entity found in PDF'
   assert not re.search(r'\\)\\d+=', pdf_text), 'Flattened exponent like )2= found in PDF'
+  print('Pre-delivery verification passed: 100% clean PDF text!')
   "
   ```
-  Fail the build immediately if any unrendered macro or broken entity is found.
+  Fail the build immediately if any unrendered macro, ampersand entity, or broken symbol is found.
 - **Embedded Figures**: Centered, sharp vector SVG or 300+ DPI images adjacent to the relevant question.
+
+## Scanned Exam Document Ingestion (CamScanner Workflow)
+When a user provides a CamScanner or image-only PDF (`pypdf` page text length is 0):
+1. Extract page images directly using `pypdf.PdfReader(path).pages[i].images`.
+2. Transcribe and parse question texts using the active multimodal model with base64 `image_url` data payload via local inference bridge (e.g., 9router `127.0.0.1:20128`), bypassing external cloud vision endpoints that time out under host egress restrictions.
+3. Formally verify every mathematical step, formula, and option in Python using SymPy before writing solutions.
+4. Compile cleanly with headless Chromium and verify the PDF text before delivery.
 
 ## Web App Alternative & Fallback (Web Link Delivery)
 When user asks for a web view, web link, or when headless PDF layout has issues (such as flexbox superscript flattening or mobile responsive viewing needed):

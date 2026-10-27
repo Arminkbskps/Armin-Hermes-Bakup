@@ -388,14 +388,14 @@
     "created_by": "agent",
     "last_patched_at": "2026-09-23T08:22:14.669185+00:00",
     "last_reused_patch_generation": 27,
-    "last_used_at": "2026-10-23T19:05:19.417148+00:00",
-    "last_viewed_at": "2026-10-23T19:05:19.415269+00:00",
+    "last_used_at": "2026-10-27T13:48:36.579986+00:00",
+    "last_viewed_at": "2026-10-27T13:48:36.578213+00:00",
     "patch_count": 27,
     "patch_generation": 27,
     "pinned": false,
     "state": "stale",
-    "use_count": 41,
-    "view_count": 41
+    "use_count": 42,
+    "view_count": 42
   },
   "claude-code": {
     "archived_at": null,
@@ -433,14 +433,14 @@
     "created_by": "agent",
     "last_patched_at": "2026-10-26T13:01:22.865134+00:00",
     "last_reused_patch_generation": 45,
-    "last_used_at": "2026-10-26T17:47:57.231130+00:00",
-    "last_viewed_at": "2026-10-26T17:47:57.228980+00:00",
+    "last_used_at": "2026-10-27T15:40:59.573783+00:00",
+    "last_viewed_at": "2026-10-27T15:40:59.564256+00:00",
     "patch_count": 48,
     "patch_generation": 45,
     "pinned": false,
     "state": "active",
-    "use_count": 83,
-    "view_count": 83
+    "use_count": 84,
+    "view_count": 84
   },
   "cloudflare-ai-vpn-engine": {
     "archived_at": null,
@@ -780,16 +780,16 @@
     "created_at": "2026-10-01T16:36:31.015801+00:00",
     "created_by": "learn",
     "first_seen_at": null,
-    "last_patched_at": "2026-10-20T18:13:33.176031+00:00",
-    "last_reused_patch_generation": 6,
-    "last_used_at": "2026-10-23T14:22:45.753798+00:00",
-    "last_viewed_at": "2026-10-23T14:22:45.749513+00:00",
-    "patch_count": 6,
-    "patch_generation": 6,
+    "last_patched_at": "2026-10-27T14:00:27.427915+00:00",
+    "last_reused_patch_generation": 7,
+    "last_used_at": "2026-10-27T15:42:22.352310+00:00",
+    "last_viewed_at": "2026-10-27T15:42:22.349979+00:00",
+    "patch_count": 7,
+    "patch_generation": 7,
     "pinned": false,
     "state": "active",
-    "use_count": 53,
-    "view_count": 53
+    "use_count": 56,
+    "view_count": 56
   },
   "excalidraw": {
     "archived_at": null,
@@ -887,14 +887,14 @@
     "first_seen_at": null,
     "last_patched_at": "2026-10-24T03:26:33.419892+00:00",
     "last_reused_patch_generation": 12,
-    "last_used_at": "2026-10-26T20:49:42.159955+00:00",
-    "last_viewed_at": "2026-10-26T20:49:42.158046+00:00",
+    "last_used_at": "2026-10-27T15:06:02.802307+00:00",
+    "last_viewed_at": "2026-10-27T15:06:02.792108+00:00",
     "patch_count": 12,
     "patch_generation": 12,
     "pinned": false,
     "state": "active",
-    "use_count": 24,
-    "view_count": 24
+    "use_count": 25,
+    "view_count": 25
   },
   "geogebra-diagram-generator": {
     "archived_at": null,
@@ -1235,14 +1235,14 @@
     "first_seen_at": null,
     "last_patched_at": "2026-10-26T14:44:52.475346+00:00",
     "last_reused_patch_generation": 2,
-    "last_used_at": "2026-10-26T17:47:31.053444+00:00",
-    "last_viewed_at": "2026-10-26T17:47:31.051592+00:00",
+    "last_used_at": "2026-10-27T13:58:58.794490+00:00",
+    "last_viewed_at": "2026-10-27T13:58:58.792441+00:00",
     "patch_count": 2,
     "patch_generation": 2,
     "pinned": false,
     "state": "active",
-    "use_count": 4,
-    "view_count": 4
+    "use_count": 6,
+    "view_count": 6
   },
   "himalaya": {
     "archived_at": null,
@@ -2300,6 +2300,22 @@
     "use_count": 0,
     "view_count": 0
   },
+  "stem-exam-booklet-typesetting": {
+    "archived_at": null,
+    "created_at": "2026-10-27T15:42:13.551462+00:00",
+    "created_by": "agent",
+    "first_seen_at": null,
+    "last_patched_at": null,
+    "last_reused_patch_generation": 0,
+    "last_used_at": null,
+    "last_viewed_at": null,
+    "patch_count": 0,
+    "patch_generation": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 0,
+    "view_count": 0
+  },
   "stem-solver-verified": {
     "archived_at": null,
     "created_at": "2026-10-01T16:36:31.002822+00:00",
@@ -2307,14 +2323,14 @@
     "first_seen_at": null,
     "last_patched_at": "2026-10-23T06:12:55.716097+00:00",
     "last_reused_patch_generation": 2,
-    "last_used_at": "2026-10-26T14:17:58.473341+00:00",
-    "last_viewed_at": "2026-10-26T14:17:58.471638+00:00",
+    "last_used_at": "2026-10-27T13:59:06.667205+00:00",
+    "last_viewed_at": "2026-10-27T13:59:06.664164+00:00",
     "patch_count": 2,
     "patch_generation": 2,
     "pinned": false,
     "state": "active",
-    "use_count": 16,
-    "view_count": 16
+    "use_count": 19,
+    "view_count": 19
   },
   "sympy": {
     "archived_at": null,

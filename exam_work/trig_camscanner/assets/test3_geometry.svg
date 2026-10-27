@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 260" width="100%" height="220" style="background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0;">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b" />
+        </marker>
+      </defs>
+      <!-- Rays -->
+      <line x1="50" y1="150" x2="292.46900510954157" y2="-19.778625159909637" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+      <line x1="50" y1="150" x2="328.14901575262894" y2="251.23796242439792" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+      
+      <!-- Triangle ABC (A-B-C-A): fill light blue -->
+      <polygon points="50,150 205.63888841490845,41.02047709330125 299.95823712905167,240.97735812462787" fill="#0284c7" fill-opacity="0.12" stroke="#0284c7" stroke-width="2" stroke-dasharray="4,3" />
+      
+      <!-- Triangle ADE (A-D-E-A): fill light emerald -->
+      <polygon points="50,150 267.8944437808718,-2.5713320693782578 192.8332783594581,201.98706178550165" fill="#10b981" fill-opacity="0.12" stroke="#10b981" stroke-width="2" />
+      
+      <!-- Cross segments: BE and DC -->
+      <line x1="205.63888841490845" y1="41.02047709330125" x2="299.95823712905167" y2="240.97735812462787" stroke="#0284c7" stroke-width="2" />
+      <line x1="267.8944437808718" y1="-2.5713320693782578" x2="192.8332783594581" y2="201.98706178550165" stroke="#10b981" stroke-width="2" />
+      
+      <!-- Points -->
+      <circle cx="50" cy="150" r="4" fill="#0f172a" />
+      <circle cx="205.63888841490845" cy="41.02047709330125" r="4" fill="#0284c7" />
+      <circle cx="267.8944437808718" cy="-2.5713320693782578" r="4" fill="#10b981" />
+      <circle cx="192.8332783594581" cy="201.98706178550165" r="4" fill="#10b981" />
+      <circle cx="299.95823712905167" cy="240.97735812462787" r="4" fill="#0284c7" />
+      
+      <!-- Labels -->
+      <text x="32" y="155" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="14" fill="#0f172a">A</text>
+      <text x="200.63888841490845" y="29.020477093301253" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="14" fill="#0284c7">B</text>
+      <text x="272.8944437808718" y="-12.571332069378258" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="14" fill="#10b981">D</text>
+      <text x="197.8332783594581" y="221.98706178550165" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="14" fill="#10b981">E</text>
+      <text x="309.95823712905167" y="258.97735812462787" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="14" fill="#0284c7">C</text>
+      
+      <!-- Segment lengths -->
+      <text x="113.81944420745423" y="87.51023854665063" font-family="Vazirmatn, sans-serif" font-size="12" font-weight="bold" fill="#0369a1">۵</text>
+      <text x="222.76666609789015" y="11.224572511961497" font-family="Vazirmatn, sans-serif" font-size="12" font-weight="bold" fill="#047857">۲</text>
+      
+      <text x="123.41663917972905" y="193.9935308927508" font-family="Vazirmatn, sans-serif" font-size="12" font-weight="bold" fill="#047857">۴</text>
+      <text x="248.39575774425487" y="239.48220995506477" font-family="Vazirmatn, sans-serif" font-size="12" font-weight="bold" fill="#0369a1">۳</text>
+      
+      <!-- Legend -->
+      <rect x="230" y="15" width="135" height="48" rx="6" fill="#ffffff" stroke="#cbd5e1" />
+      <line x1="240" y1="28" x2="260" y2="28" stroke="#0284c7" stroke-width="2" />
+      <text x="268" y="32" font-family="Vazirmatn, sans-serif" font-size="10.5" fill="#1e293b">مثلث ABC (ضلع ۵ و ۷)</text>
+      <line x1="240" y1="46" x2="260" y2="46" stroke="#10b981" stroke-width="2" />
+      <text x="268" y="50" font-family="Vazirmatn, sans-serif" font-size="10.5" fill="#1e293b">مثلث ADE (ضلع ۷ و ۴)</text>
+    </svg>

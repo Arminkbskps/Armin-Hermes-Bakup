@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 240" width="100%" height="210" style="background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0;">
+      <!-- Base Line AC -->
+      <line x1="30" y1="190" x2="353" y2="190" stroke="#0f172a" stroke-width="2.2" />
+      
+      <!-- Square 1 (3x3): Light Sky Fill -->
+      <rect x="45" y="118" width="72" height="72" fill="#e0f2fe" fill-opacity="0.6" stroke="#0284c7" stroke-width="1.8" />
+      <!-- Square 2 (4x4): Light Amber Fill -->
+      <rect x="117" y="94" width="96" height="96" fill="#fef3c7" fill-opacity="0.6" stroke="#d97706" stroke-width="1.8" />
+      <!-- Square 3 (5x5): Light Emerald Fill -->
+      <rect x="213" y="70" width="120" height="120" fill="#dcfce7" fill-opacity="0.6" stroke="#16a34a" stroke-width="1.8" />
+      
+      <!-- Vertical edge KD (height 5 units) -->
+      <line x1="213" y1="70" x2="213" y2="190" stroke="#0f172a" stroke-width="2.5" />
+      
+      <!-- Diagonal line AB (from A to B) -->
+      <line x1="45" y1="190" x2="333" y2="70" stroke="#e11d48" stroke-width="2.2" />
+      
+      <!-- Intersection Point P -->
+      <circle cx="213" cy="120.0" r="4.5" fill="#e11d48" />
+      
+      <!-- Important Vertices -->
+      <circle cx="45" cy="190" r="4" fill="#0f172a" />
+      <circle cx="213" cy="190" r="4" fill="#0f172a" />
+      <circle cx="333" cy="190" r="4" fill="#0f172a" />
+      <circle cx="213" cy="70" r="4" fill="#0f172a" />
+      <circle cx="333" cy="70" r="4" fill="#0f172a" />
+      
+      <!-- Labels -->
+      <text x="30" y="208" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="13" fill="#0f172a">A</text>
+      <text x="208" y="208" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="13" fill="#0f172a">D</text>
+      <text x="339" y="208" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="13" fill="#0f172a">C</text>
+      <text x="197" y="64" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="13" fill="#0f172a">K</text>
+      <text x="339" y="64" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="13" fill="#0f172a">B</text>
+      <text x="221" y="124.0" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="13" fill="#e11d48">P</text>
+      
+      <!-- Side lengths inside squares -->
+      <text x="76.0" y="158.0" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="12" fill="#0369a1">۳</text>
+      <text x="160.0" y="146" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="12" fill="#b45309">۴</text>
+      <text x="268.0" y="134.0" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="12" fill="#15803d">۵</text>
+      
+      <!-- Dimension KP indicator -->
+      <path d="M 205 70 L 205 120.0" stroke="#e11d48" stroke-width="1.8" />
+      <line x1="201" y1="70" x2="209" y2="70" stroke="#e11d48" stroke-width="1.5" />
+      <line x1="201" y1="120.0" x2="209" y2="120.0" stroke="#e11d48" stroke-width="1.5" />
+      <text x="181" y="99.0" font-family="Vazirmatn, sans-serif" font-weight="bold" font-size="10.5" fill="#e11d48">KP = ؟</text>
+      
+      <!-- Dimension PD indicator -->
+      <path d="M 205 120.0 L 205 190" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3,3" />
+      <text x="175" y="159.0" font-family="Vazirmatn, sans-serif" font-size="9.5" fill="#64748b">PD=۳۵/۱۲</text>
+    </svg>
