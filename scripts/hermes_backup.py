@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Hermes backup -> Google Drive with automatic multi-part chunking (chunks <=20MB)."""
-import os, sys, json, base64, subprocess, urllib.request, glob, time
+import os, sys, json, base64, subprocess, urllib.request, glob, time, atexit
 
 ENDPOINT_FILE = os.path.expanduser("~/.config/gdrive/endpoint.txt")
 with open(ENDPOINT_FILE) as f:
@@ -28,6 +28,20 @@ PATHS = ([".hermes/cron", ".hermes/memories", ".hermes/config.yaml", ".hermes/SO
 
 FNAME = f"Hermes_Backup_{TS}.tar.gz"
 archive = f"{TMP}/{FNAME}"
+
+def cleanup():
+    if os.path.exists(archive):
+        try:
+            os.remove(archive)
+        except Exception:
+            pass
+    for p in glob.glob(f"{TMP}/Hermes_Backup_*.tar.gz*"):
+        try:
+            os.remove(p)
+        except Exception:
+            pass
+
+atexit.register(cleanup)
 cmd = ["tar", "--use-compress-program=gzip -9", "-cf", archive] + BASE_EXCLUDES + ["-C", "/home/daytona"] + PATHS
 r = subprocess.run(cmd, capture_output=True, text=True)
 if r.returncode not in (0, 1):
