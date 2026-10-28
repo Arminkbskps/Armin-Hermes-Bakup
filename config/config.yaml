@@ -116,6 +116,7 @@ delegation:
 skills:
   creation_nudge_interval: 15
 command_allowlist:
+  - invisible or bidirectional Unicode control character (possible obfuscation)
   - recursive delete
   - script execution via -e/-c flag
   - script execution via heredoc

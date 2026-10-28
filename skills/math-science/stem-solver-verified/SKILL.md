@@ -20,9 +20,11 @@ Procedure for solving high school (Sampad / Konkur / Olympiad) mathematics, phys
    - Always run Python code in background to verify equations, roots, integrals, derivatives, limits, and chemical balances symbolically.
    - Never perform long algebraic divisions, large matrix determinants, or stoichiometric balancing in mental approximations.
 3. **Step-by-Step Persian Solution & Delivery Rules**:
+   - **Primary Deliverable First**: When the student provides an exam document and asks to solve it (e.g. «این سوالات رو مثل قبل حل کن»، «جواب این رو هم بساز»), the core deliverable is the compiled, print-ready PDF booklet. Always generate, verify, and attach the PDF (`MEDIA:/path/to/pdf`) directly alongside a concise summary, rather than outputting a massive multi-page text transcript in chat before building the PDF.
    - **Curriculum Calibration**: Explain clear conceptual steps following Iranian high-school curriculum standards (e.g. Grade 10 Lesson 2 trigonometry) without unsolicited calculus shortcuts.
    - **Tone & Register**: Keep the voice friendly, clear, and encouraging (صمیمی، دقیق، رفیقانه), explaining the intuition behind each algebraic step.
    - **Telegram Chat Formatting**: Convert all LaTeX to clean, readable Unicode math in chat prose (`sin²x`, `cos θ`, `α`, `√( ... )`, `±`, `(a / b)`); never leak unrendered LaTeX control codes.
+   - **Zero Raw HTML Entities**: Never emit raw HTML named entities (e.g., `&implies;`, `&lpar;`, `&rpar;`, `&minus;`, `&times;`) in either chat text or HTML generation templates. Always use true Unicode mathematical glyphs (`⇒`, `(`, `)`, `−`, `×`, `√`, `α`, `θ`).
    - **No Ugly Sketches**: Never draw crude ASCII art or sloppy text diagrams. Use exact vector SVG when figures are required, or rely on clean structured algebraic layout.
    - **Companion PDF Document**: Always compile and attach a clean, print-ready A4 PDF booklet with Vazirmatn font alongside the chat response.
    - State the final result clearly with units and four-choice option match (گزینه ۱، ۲، ۳ یا ۴).

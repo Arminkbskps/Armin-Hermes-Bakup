@@ -1,9 +1,9 @@
 {
-  "last_report_path": "/home/daytona/.hermes/logs/curator/20261021-140223",
-  "last_run_at": "2026-10-21T14:02:23.502957+00:00",
-  "last_run_duration_seconds": 2.895691,
-  "last_run_summary": "auto: 14 marked stale, 2 archived, 1 reactivated; llm: skipped (consolidation off)",
+  "last_report_path": "/home/daytona/.hermes/logs/curator/20261028-144423",
+  "last_run_at": "2026-10-28T14:44:23.809876+00:00",
+  "last_run_duration_seconds": 3.362338,
+  "last_run_summary": "auto: 3 marked stale, 6 archived, 3 reactivated; llm: skipped (consolidation off)",
   "last_run_summary_shown_at": "2026-08-06T07:23:32.819550+00:00",
   "paused": false,
-  "run_count": 11
+  "run_count": 12
 }
