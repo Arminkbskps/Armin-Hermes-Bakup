@@ -1,0 +1,32 @@
+name: Test Google Drive Endpoint
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test POST to Apps Script
+        run: |
+          python3 - << 'PY'
+          import urllib.request, json, base64
+
+          ENDPOINT = "https://script.google.com/macros/s/AKfycbyq_SEgbG_xLiCCKcKjyjGBk7_MDeT-QPSvBwwZAlv2gwQHtCEK1Gd5X9li7xMm-BWB/exec"
+          payload = {
+              "filename": "test_ping.txt",
+              "subfolder": "Hermes_Backups",
+              "replace": True,
+              "mimeType": "text/plain",
+              "base64": base64.b64encode(b"Hello from GitHub Actions runner").decode("ascii")
+          }
+          data = json.dumps(payload).encode("utf-8")
+          req = urllib.request.Request(
+              ENDPOINT, data=data,
+              headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"},
+              method="POST"
+          )
+          with urllib.request.urlopen(req, timeout=60) as resp:
+              res = json.loads(resp.read().decode())
+              print("Response from Google Apps Script:", json.dumps(res, indent=2))
+          PY
