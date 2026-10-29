@@ -1,0 +1,33 @@
+name: Deploy Bots to HidenCloud
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'bot_edit/**'
+      - '.github/workflows/deploy-hidencloud.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install SSH and SSHPass
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y sshpass openssh-client
+
+      - name: Deploy to HidenCloud via SFTP
+        run: |
+          export SSHPASS="Armin@1389"
+          echo "Uploading bot1.py to Bot/bot.py..."
+          sshpass -e sftp -o StrictHostKeyChecking=no -P 2022 h82uygjo3q-155393.8bf3ab98@jacob.hidencloud.com << 'CMD'
+          put bot_edit/bot1.py Bot/bot.py
+          put bot_edit/bot2.py Bot 2/bot2.py
+          ls -l "Bot/bot.py"
+          ls -l "Bot 2/bot2.py"
+          bye
+          CMD
+          echo "Deployment finished successfully!"
