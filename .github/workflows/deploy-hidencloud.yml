@@ -22,10 +22,11 @@ jobs:
       - name: Deploy to HidenCloud via SFTP
         run: |
           export SSHPASS="Armin@1389"
-          echo "Uploading bot1.py to Bot/bot.py..."
+          echo "Uploading bots to HidenCloud..."
           sshpass -e sftp -o StrictHostKeyChecking=no -P 2022 h82uygjo3q-155393.8bf3ab98@jacob.hidencloud.com << 'CMD'
-          put bot_edit/bot1.py Bot/bot.py
-          put bot_edit/bot2.py Bot 2/bot2.py
+          put bot_edit/bot1.py "Bot/bot.py"
+          put bot_edit/bot2.py "Bot 2/bot2.py"
+          rm -f "Bot/bot2.py"
           ls -l "Bot/bot.py"
           ls -l "Bot 2/bot2.py"
           bye
