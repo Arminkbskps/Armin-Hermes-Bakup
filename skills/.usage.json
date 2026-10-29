@@ -14,6 +14,22 @@
     "use_count": 9,
     "view_count": 9
   },
+  "agent-context-migration": {
+    "archived_at": null,
+    "created_at": "2026-10-29T12:55:20.738502+00:00",
+    "created_by": "agent",
+    "first_seen_at": null,
+    "last_patched_at": "2026-10-29T12:59:14.058341+00:00",
+    "last_reused_patch_generation": 2,
+    "last_used_at": "2026-10-29T12:59:17.591497+00:00",
+    "last_viewed_at": "2026-10-29T12:59:17.583430+00:00",
+    "patch_count": 2,
+    "patch_generation": 2,
+    "pinned": false,
+    "state": "active",
+    "use_count": 5,
+    "view_count": 5
+  },
   "agent-email-inbox": {
     "archived_at": null,
     "created_at": "2026-10-04T12:15:42.289550+00:00",
@@ -433,14 +449,14 @@
     "created_by": "agent",
     "last_patched_at": "2026-10-26T13:01:22.865134+00:00",
     "last_reused_patch_generation": 45,
-    "last_used_at": "2026-10-27T15:40:59.573783+00:00",
-    "last_viewed_at": "2026-10-27T15:40:59.564256+00:00",
+    "last_used_at": "2026-10-29T08:28:49.517829+00:00",
+    "last_viewed_at": "2026-10-29T08:28:49.515770+00:00",
     "patch_count": 48,
     "patch_generation": 45,
     "pinned": false,
     "state": "active",
-    "use_count": 84,
-    "view_count": 84
+    "use_count": 85,
+    "view_count": 85
   },
   "cloudflare-ai-vpn-engine": {
     "archived_at": null,
@@ -782,14 +798,14 @@
     "first_seen_at": null,
     "last_patched_at": "2026-10-27T14:00:27.427915+00:00",
     "last_reused_patch_generation": 7,
-    "last_used_at": "2026-10-29T06:18:49.001330+00:00",
-    "last_viewed_at": "2026-10-29T06:18:48.998467+00:00",
+    "last_used_at": "2026-10-29T08:28:37.034028+00:00",
+    "last_viewed_at": "2026-10-29T08:28:37.031420+00:00",
     "patch_count": 7,
     "patch_generation": 7,
     "pinned": false,
     "state": "active",
-    "use_count": 61,
-    "view_count": 61
+    "use_count": 62,
+    "view_count": 62
   },
   "excalidraw": {
     "archived_at": null,
@@ -1167,6 +1183,22 @@
     "state": "active",
     "use_count": 2,
     "view_count": 2
+  },
+  "handoff": {
+    "archived_at": null,
+    "created_at": "2026-10-29T12:54:26.365561+00:00",
+    "created_by": null,
+    "first_seen_at": null,
+    "last_patched_at": null,
+    "last_reused_patch_generation": 0,
+    "last_used_at": "2026-10-29T12:54:26.369265+00:00",
+    "last_viewed_at": "2026-10-29T12:54:26.365574+00:00",
+    "patch_count": 0,
+    "patch_generation": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
   },
   "hermes-agent": {
     "archived_at": null,
@@ -1825,14 +1857,14 @@
     "created_by": null,
     "last_patched_at": null,
     "last_reused_patch_generation": 0,
-    "last_used_at": "2026-10-18T13:38:21.194687+00:00",
-    "last_viewed_at": "2026-10-18T13:38:21.192749+00:00",
+    "last_used_at": "2026-10-29T12:54:29.294198+00:00",
+    "last_viewed_at": "2026-10-29T12:54:29.292058+00:00",
     "patch_count": 0,
     "patch_generation": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 7,
-    "view_count": 7
+    "use_count": 8,
+    "view_count": 8
   },
   "persian-singlefile-sites": {
     "archived_at": null,
@@ -2210,6 +2242,22 @@
     "use_count": 2,
     "view_count": 2
   },
+  "software-development/cloud-dev-environments": {
+    "archived_at": null,
+    "created_at": "2026-10-29T08:29:45.312755+00:00",
+    "created_by": null,
+    "first_seen_at": null,
+    "last_patched_at": "2026-10-29T08:29:45.312763+00:00",
+    "last_reused_patch_generation": 0,
+    "last_used_at": null,
+    "last_viewed_at": null,
+    "patch_count": 1,
+    "patch_generation": 1,
+    "pinned": false,
+    "state": "active",
+    "use_count": 0,
+    "view_count": 0
+  },
   "software-development/telegram-bot-reliability": {
     "archived_at": null,
     "created_at": "2026-09-08T07:10:30.606472+00:00",
@@ -2224,6 +2272,22 @@
     "state": "active",
     "use_count": 2,
     "view_count": 2
+  },
+  "software-development/telegram-group-ai-assistants": {
+    "archived_at": null,
+    "created_at": "2026-10-29T08:29:07.714467+00:00",
+    "created_by": null,
+    "first_seen_at": null,
+    "last_patched_at": "2026-10-29T08:29:07.714476+00:00",
+    "last_reused_patch_generation": 0,
+    "last_used_at": null,
+    "last_viewed_at": null,
+    "patch_count": 1,
+    "patch_generation": 1,
+    "pinned": false,
+    "state": "active",
+    "use_count": 0,
+    "view_count": 0
   },
   "software-development:cloud-dev-environments": {
     "archived_at": null,
@@ -2416,14 +2480,14 @@
     "first_seen_at": null,
     "last_patched_at": "2026-10-24T18:02:27.663803+00:00",
     "last_reused_patch_generation": 3,
-    "last_used_at": "2026-10-29T06:13:31.736060+00:00",
-    "last_viewed_at": "2026-10-29T06:13:31.733782+00:00",
+    "last_used_at": "2026-10-29T08:28:40.835575+00:00",
+    "last_viewed_at": "2026-10-29T08:28:40.833458+00:00",
     "patch_count": 3,
     "patch_generation": 3,
     "pinned": false,
     "state": "active",
-    "use_count": 16,
-    "view_count": 16
+    "use_count": 17,
+    "view_count": 17
   },
   "test-driven-development": {
     "archived_at": null,
@@ -2694,6 +2758,22 @@
     "state": "stale",
     "use_count": 11,
     "view_count": 11
+  },
+  "writing-for-agents": {
+    "archived_at": null,
+    "created_at": "2026-10-29T12:54:39.294867+00:00",
+    "created_by": null,
+    "first_seen_at": null,
+    "last_patched_at": null,
+    "last_reused_patch_generation": 0,
+    "last_used_at": "2026-10-29T12:54:39.297330+00:00",
+    "last_viewed_at": "2026-10-29T12:54:39.294880+00:00",
+    "patch_count": 0,
+    "patch_generation": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
   },
   "writing/persian-tech-channel-copywriting": {
     "archived_at": null,

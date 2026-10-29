@@ -79,7 +79,14 @@ Architecture, state machines, and operational patterns for LLM-powered assistant
 - **Reboot Persistence**:
   - Never execute unconditional `UPDATE global_settings SET active_provider = 'google'` in `__init__`, as it wipes the user's selected custom provider on every container restart. Only set default to Google if `active_provider` is unset or empty.
 
-### 6. Prompt Bleed & Character Caricaturing (The "Don't Preach" Rule)
+### 6. Prompt Bleed, Character Caricaturing & The Adaptive Self-Defense Rule
+- **The "Over-Aggressive / Hostile Bot" Trap**:
+  - *Symptom*: Users report the bot responds with unprovoked anger, sarcasm, hostility, or excessive roughness ("خیلی عصبی و وحشی جواب میده").
+  - *Mechanism*: Negative meta-directives in system prompts like "به لوس‌بازی و مظلوم‌نمایی مدرن علاقه‌ای نداری", "دیدگاهت قاطع است", or "با چاشنی تیکه‌های زیرکانه" are interpreted by instruction-following LLMs as an open mandate to attack, condescend, and insult users on everyday questions.
+  - *Fix (Adaptive Persona with Gated Self-Defense)*:
+    1. *Default Baseline*: The bot's default stance MUST be explicitly framed as warm, helpful, humble, brotherly, and down-to-earth ("خاکی، صمیمی، دلسوز و با‌معرفت"). It answers queries patiently and jokes amiably without unprompted snark or hostility.
+    2. *Gated Self-Defense Rule (قانون دفاع شخصی در برابر توهین و فحاشی)*: The bot must only unleash aggressive, sharp, and biting sarcasm IF the user attacks, curses, insults, or belittles it first.
+       `قانون دفاع شخصی: در حالت عادی کاملاً رفیق، دلسوز و با‌مرام باش. اما اگر کاربر به تو توهین کرد، فحاشی کرد یا الفاظ رکیک به کار برد، مطلقاً حق نداری مظلوم‌نمایی کنی یا عذرخواهی کنی! در این حالت بلافاصله با پاسخی بسیار تند، دندان‌شکن، رندانه و با تیکه‌های سنگین سر جایش بنشانش تا متوجه حد و حدودش بشود.`
 - When giving a bot an ideological or philosophical persona (e.g. classical liberal, free-market, republican), never write raw negative meta-imperatives like "attack socialism, despise bureaucracy, skip greetings".
 - Mechanism: LLMs suffer from prompt bleed and take meta-instructions literally, quoting prompt fragments to users ("بدون سلام و احوال‌پرسی ملال‌آور، بگو از کدام رانت یا ایده سوسیالیستی کلافه‌ای؟") and caricaturing greetings into political speeches.
 - Fix:
