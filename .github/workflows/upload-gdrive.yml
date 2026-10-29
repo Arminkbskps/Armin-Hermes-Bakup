@@ -1,0 +1,107 @@
+name: Upload Backup to Google Drive
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release tag containing the backup archive'
+        required: true
+      archive_name:
+        description: 'Archive file name'
+        required: true
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Asset from GitHub Release
+        id: download
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ github.event.inputs.tag_name }}"
+          NAME="${{ github.event.inputs.archive_name }}"
+          echo "Downloading $NAME from release $TAG..."
+          gh release download "$TAG" --repo "${{ github.repository }}" --pattern "$NAME" --dir /tmp/archive
+          ls -lh /tmp/archive/"$NAME"
+
+      - name: Split and Upload to Google Drive
+        env:
+          ENDPOINT: "https://script.google.com/macros/s/AKfycbyq_SEgbG_xLiCCKcKjyjGBk7_MDeT-QPSvBwwZAlv2gwQHtCEK1Gd5X9li7xMm-BWB/exec"
+        run: |
+          python3 - << 'PY'
+          import os, sys, json, base64, urllib.request, time
+
+          ENDPOINT = os.environ["ENDPOINT"]
+          archive_name = "${{ github.event.inputs.archive_name }}"
+          archive_path = f"/tmp/archive/{archive_name}"
+
+          total_sz = os.path.getsize(archive_path)
+          total_mb = total_sz / (1024 * 1024)
+          print(f"Total Archive Size: {total_mb:.1f} MB ({total_sz} bytes)")
+
+          CHUNK_SIZE = 20 * 1024 * 1024
+
+          def upload_chunk(chunk_bytes, filename, mime_type="application/octet-stream"):
+              payload = {
+                  "filename": filename,
+                  "subfolder": "Hermes_Backups",
+                  "replace": True,
+                  "mimeType": mime_type,
+                  "base64": base64.b64encode(chunk_bytes).decode("ascii")
+              }
+              data = json.dumps(payload).encode("utf-8")
+              for attempt in range(1, 4):
+                  try:
+                      req = urllib.request.Request(
+                          ENDPOINT, data=data,
+                          headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"},
+                          method="POST"
+                      )
+                      with urllib.request.urlopen(req, timeout=300) as resp:
+                          res = json.loads(resp.read().decode())
+                      if res.get("status") != "success":
+                          raise RuntimeError(res.get("message", "Unknown error from Apps Script"))
+                      return res.get("url")
+                  except Exception as e:
+                      print(f"Attempt {attempt}/3 for {filename} failed: {e}")
+                      if attempt < 3:
+                          time.sleep(4 * attempt)
+              return None
+
+          part_urls = []
+          if total_sz <= CHUNK_SIZE:
+              print(f"Uploading single file {archive_name}...")
+              with open(archive_path, "rb") as f:
+                  raw = f.read()
+              url = upload_chunk(raw, archive_name, mime_type="application/gzip")
+              if not url:
+                  print("FAILED: Single upload failed")
+                  sys.exit(1)
+              part_urls.append((archive_name, url))
+              print(f"SUCCESS: {url}")
+              print(f"BACKUP_URL={url}")
+          else:
+              num_parts = (total_sz + CHUNK_SIZE - 1) // CHUNK_SIZE
+              print(f"Archive exceeds 20MB limit. Splitting into {num_parts} parts...")
+              with open(archive_path, "rb") as f:
+                  for idx in range(1, num_parts + 1):
+                      chunk = f.read(CHUNK_SIZE)
+                      part_name = f"{archive_name}.part{idx}"
+                      chunk_mb = len(chunk) / (1024 * 1024)
+                      print(f"Uploading Part {idx}/{num_parts}: {part_name} ({chunk_mb:.1f} MB)...")
+                      url = upload_chunk(chunk, part_name, mime_type="application/octet-stream")
+                      if not url:
+                          print(f"FAILED: Part {idx} upload failed")
+                          sys.exit(1)
+                      print(f"Part {idx} uploaded: {url}")
+                      part_urls.append((part_name, url))
+
+              print(f"ALL {num_parts} PARTS UPLOADED SUCCESSFULLY!")
+              for idx, (pname, url) in enumerate(part_urls, 1):
+                  print(f"PART_{idx}_URL={url}")
+              links_str = " | ".join(f"[{pname}]({url})" for pname, url in part_urls)
+              print(f"BACKUP_URL={links_str}")
+
+          print("GD_RELAY_COMPLETED")
+          PY
