@@ -21,14 +21,14 @@
     "first_seen_at": null,
     "last_patched_at": "2026-10-29T12:59:14.058341+00:00",
     "last_reused_patch_generation": 2,
-    "last_used_at": "2026-10-29T12:59:17.591497+00:00",
-    "last_viewed_at": "2026-10-29T12:59:17.583430+00:00",
+    "last_used_at": "2026-10-30T09:46:27.903551+00:00",
+    "last_viewed_at": "2026-10-30T09:46:27.900968+00:00",
     "patch_count": 2,
     "patch_generation": 2,
     "pinned": false,
     "state": "active",
-    "use_count": 5,
-    "view_count": 5
+    "use_count": 8,
+    "view_count": 8
   },
   "agent-email-inbox": {
     "archived_at": null,
@@ -313,14 +313,14 @@
     "created_by": null,
     "last_patched_at": null,
     "last_reused_patch_generation": 0,
-    "last_used_at": "2026-08-15T08:15:19.908816+00:00",
-    "last_viewed_at": "2026-08-15T08:15:19.883201+00:00",
+    "last_used_at": "2026-10-30T12:02:17.129719+00:00",
+    "last_viewed_at": "2026-10-30T12:02:17.111484+00:00",
     "patch_count": 0,
     "patch_generation": 0,
     "pinned": false,
     "state": "stale",
-    "use_count": 1,
-    "view_count": 1
+    "use_count": 2,
+    "view_count": 2
   },
   "blogwatcher": {
     "archived_at": null,
@@ -447,16 +447,16 @@
     "archived_at": null,
     "created_at": "2026-07-29T09:29:59.932993+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-10-26T13:01:22.865134+00:00",
-    "last_reused_patch_generation": 45,
-    "last_used_at": "2026-10-29T08:28:49.517829+00:00",
-    "last_viewed_at": "2026-10-29T08:28:49.515770+00:00",
-    "patch_count": 48,
-    "patch_generation": 45,
+    "last_patched_at": "2026-10-30T09:48:45.235164+00:00",
+    "last_reused_patch_generation": 46,
+    "last_used_at": "2026-10-30T09:47:06.220994+00:00",
+    "last_viewed_at": "2026-10-30T09:47:06.218904+00:00",
+    "patch_count": 50,
+    "patch_generation": 47,
     "pinned": false,
     "state": "active",
-    "use_count": 85,
-    "view_count": 85
+    "use_count": 89,
+    "view_count": 89
   },
   "cloudflare-ai-vpn-engine": {
     "archived_at": null,
@@ -1398,6 +1398,22 @@
     "use_count": 0,
     "view_count": 0
   },
+  "jupyter-notebook": {
+    "archived_at": null,
+    "created_at": "2026-10-30T09:46:34.752177+00:00",
+    "created_by": null,
+    "first_seen_at": null,
+    "last_patched_at": null,
+    "last_reused_patch_generation": 0,
+    "last_used_at": "2026-10-30T09:46:34.754312+00:00",
+    "last_viewed_at": "2026-10-30T09:46:34.752191+00:00",
+    "patch_count": 0,
+    "patch_generation": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
+  },
   "lenis-scroll": {
     "archived_at": null,
     "created_at": "2026-09-21T17:06:32.830164+00:00",
@@ -1625,6 +1641,22 @@
     "state": "active",
     "use_count": 1,
     "view_count": 1
+  },
+  "mobile-linux-remote-access": {
+    "archived_at": null,
+    "created_at": "2026-10-30T07:57:46.146184+00:00",
+    "created_by": "agent",
+    "first_seen_at": null,
+    "last_patched_at": "2026-10-30T12:05:45.860399+00:00",
+    "last_reused_patch_generation": 1,
+    "last_used_at": "2026-10-30T12:05:49.423818+00:00",
+    "last_viewed_at": "2026-10-30T12:05:49.421712+00:00",
+    "patch_count": 1,
+    "patch_generation": 1,
+    "pinned": false,
+    "state": "active",
+    "use_count": 4,
+    "view_count": 4
   },
   "nano-pdf": {
     "archived_at": null,

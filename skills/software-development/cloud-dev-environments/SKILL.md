@@ -44,6 +44,28 @@ Use this skill when the user is operating inside a Cloud Development Environment
 - **Systemd in Full Guest VMs**: When running a real nested QEMU Ubuntu VM inside Daytona, systemd is PID 1 (unlike bare CDE containers). Persist services (e.g. `9router.service` and `hermes-gateway.service`) under `/etc/systemd/system/` with `Restart=always` and `systemctl enable --now`.
   - Ensure `python-telegram-bot` is installed in Hermes's venv (`uv pip install python-telegram-bot`) before starting `hermes-gateway.service`.
 
+## Ephemeral Cloud Notebooks & GPU Sandboxes (MoLab, Colab, Kaggle, Marimo)
+- **Single-Cell Lifecycle Enforcement**: In interactive notebooks (Marimo, Jupyter, MoLab), background daemons (`os.system("... &")` or background subprocesses) spawned in a finished cell die or enter zombie states as soon as the cell execution completes. Never split "start daemon" and "start tunnel" across multiple cells. Always package daemon startup (VNC server, `websockify`), tunnel initiation (`cloudflared`), and a blocking keep-alive loop (`while True: time.sleep(60)`) into a single, unified execution cell.
+- **Subprocess Reverse Tunnels (The Non-TTY Pseudo-Terminal Trap)**:
+  - Spawning direct SSH tunnels (`ssh free@a.pinggy.io`, `ssh nokey@localhost.run`) via `subprocess.Popen` without a pseudoterminal will fail immediately with: `Pseudo-terminal will not be allocated because stdin is not a terminal.`
+  - For headless notebook environments, use non-interactive native binaries like `cloudflared tunnel --url http://127.0.0.1:<port>` (which outputs its allocated link directly to `stderr` without requiring an interactive TTY).
+- **Cloudflare Tunnel Error 1033 & Python Subprocess Pipe Deadlock**:
+  - When spawning `cloudflared tunnel --url ...` in Python via `subprocess.Popen`, never pipe `stderr=subprocess.PIPE` without continuously draining it. Go binaries write verbose connection telemetry; once the OS pipe buffer (64KB) fills, `cloudflared` hangs, misses its edge heartbeat, and Cloudflare drops the tunnel returning **Error 1033: Unable to resolve tunnel**.
+  - Always redirect output directly to a disk file (`cloudflared ... > /tmp/cf.log 2>&1 &`) and inspect the file from Python.
+  - Pass `--protocol http2` to avoid QUIC/UDP packet loss inside cloud container sandboxes.
+  - Quick tunnels (`*.trycloudflare.com`) take 15-30s for edge DNS propagation. Poll `/tmp/cf.log` and do not navigate to the URL until the log confirms `Registered tunnel connection` or `connIndex=0`.
+- **Pinggy Python SDK vs Datacenter IP Blocks**:
+  - `pinggy.start_tunnel()` populates `tunnel.urls` (`list[str]`) asynchronously via event callbacks; poll `tunnel.urls` in a loop until populated rather than reading immediately.
+  - Note: Free Pinggy servers (`a.pinggy.io:443`) frequently reset SSL handshakes (`SSL_ERROR_SYSCALL: Connection reset by peer`) from cloud datacenter IPs.
+- **Web-Desktop GUI Pipeline (noVNC + XFCE4 / TigerVNC)**:
+  - Required packages: `xfce4 xfce4-goodies tigervnc-standalone-server dbus-x11 novnc websockify`.
+  - TigerVNC runs on display `:1` (port 5901).
+  - `websockify` bridges WebSocket traffic on port 6080 to `localhost:5901`, serving web root `/usr/share/novnc`.
+  - Always append autoconnect and resize parameters to the generated tunnel URL:
+    `https://<tunnel-url>/vnc.html?autoconnect=true&resize=remote`
+    This ensures the remote desktop automatically negotiates the session, prompts for password, and dynamically fits mobile/touch viewports.
+  - *Regional Censorship Notice*: `*.trycloudflare.com` domains are frequently SNI-filtered by regional ISPs (e.g. Iran). Inform the user to ensure their local device proxy/VPN is active when opening the web client.
+
 ## Minimal Container VPS (LXC / OpenVZ)
 - **No systemd (PID 1)**: Commands like `systemctl enable --now docker` will fail with `System has not been booted with systemd as init system (PID 1)`.
   - *Fix*: The OS is a container, not a full VM. Use legacy init commands like `service docker start` or `/etc/init.d/docker start`. 
