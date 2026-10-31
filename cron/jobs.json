@@ -23,15 +23,15 @@
       "schedule_display": "every 360m",
       "repeat": {
         "times": null,
-        "completed": 99
+        "completed": 100
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-03T14:13:45.040324+00:00",
-      "next_run_at": "2026-10-31T15:58:38.497772+00:00",
-      "last_run_at": "2026-10-31T09:58:38.497772+00:00",
+      "next_run_at": "2026-10-31T22:01:02.500978+00:00",
+      "last_run_at": "2026-10-31T16:01:02.500978+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -49,9 +49,9 @@
       "enabled_toolsets": null,
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-31T09:56:08.503328+00:00",
-        "dispatched_at": "2026-10-31T09:57:05.267794+00:00",
-        "lateness_seconds": 56.8,
+        "scheduled_at": "2026-10-31T15:58:38.497772+00:00",
+        "dispatched_at": "2026-10-31T15:59:05.267998+00:00",
+        "lateness_seconds": 26.8,
         "kind": "on_time"
       },
       "fire_claim": null,
@@ -60,7 +60,7 @@
         "detail": "RuntimeError: HTTP 401: �\b\u0000\u0000\u0000\u0000\u0000\u0000\u0003�VJ-*�/R�Rr\f�T�N�T(J-,�,JMQH�/R(J��/IU\u0000�%&'�\u0016\u0017+�\u0002\u0000�k\u0004�2\u0000\u0000\u0000"
       },
       "canonical_completions": [
-        "8aec25bdb04241fcb54ff2425749f413"
+        "47cda65941da4ed3a23204a7dc446d7a"
       ]
     },
     {
@@ -86,15 +86,15 @@
       "schedule_display": "every 30m",
       "repeat": {
         "times": null,
-        "completed": 1061
+        "completed": 1072
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-06T12:27:07.474669+00:00",
-      "next_run_at": "2026-10-31T13:47:05.344540+00:00",
-      "last_run_at": "2026-10-31T13:17:05.344540+00:00",
+      "next_run_at": "2026-10-31T19:28:05.349545+00:00",
+      "last_run_at": "2026-10-31T18:58:05.349545+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -113,8 +113,8 @@
       "workdir": null,
       "fire_claim": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-31T13:16:05.346804+00:00",
-        "dispatched_at": "2026-10-31T13:17:05.267403+00:00",
+        "scheduled_at": "2026-10-31T18:57:05.352243+00:00",
+        "dispatched_at": "2026-10-31T18:58:05.267390+00:00",
         "lateness_seconds": 59.9,
         "kind": "on_time"
       },
@@ -146,15 +146,15 @@
       "schedule_display": "every 360m",
       "repeat": {
         "times": null,
-        "completed": 19
+        "completed": 20
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-26T12:59:44.330343+00:00",
-      "next_run_at": "2026-10-31T19:19:05.280727+00:00",
-      "last_run_at": "2026-10-31T07:18:36.606733+00:00",
+      "next_run_at": "2026-11-01T01:20:05.284267+00:00",
+      "last_run_at": "2026-10-31T13:19:38.440119+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -175,19 +175,19 @@
       ],
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-31T13:18:36.606733+00:00",
-        "dispatched_at": "2026-10-31T13:19:05.266723+00:00",
-        "lateness_seconds": 28.7,
+        "scheduled_at": "2026-10-31T19:19:38.440119+00:00",
+        "dispatched_at": "2026-10-31T19:20:05.266888+00:00",
+        "lateness_seconds": 26.8,
         "kind": "on_time"
       },
       "fire_claim": {
-        "at": "2026-10-31T13:19:05.285036+00:00",
-        "by": "6060f57e-6bf0-4f9e-85a7-bde2d982ee00:1062362:6bc8d0cb123f4650956b4b74a529c855"
+        "at": "2026-10-31T19:20:05.287737+00:00",
+        "by": "6060f57e-6bf0-4f9e-85a7-bde2d982ee00:1062362:a247b806336e45d6a2e516d13b696a41"
       },
       "canonical_completions": [
-        "d21cd509d70b44a8b734a086e4ae9570"
+        "9245573325c94070b55169ce237630c2"
       ]
     }
   ],
-  "updated_at": "2026-10-31T13:19:05.285647+00:00"
+  "updated_at": "2026-10-31T19:20:05.288238+00:00"
 }
