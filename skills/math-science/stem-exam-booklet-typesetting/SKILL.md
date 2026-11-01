@@ -1,7 +1,7 @@
 ---
 name: exam-pdf-typesetter
 description: "Use when typesetting Persian STEM exams and test booklets."
-version: 1.2.1
+version: 1.3.0
 author: Armin & Hermes
 license: MIT
 platforms: [linux, macos, windows]
@@ -27,6 +27,15 @@ Typeset publication-quality Persian multiple-choice and descriptive STEM exams (
   - Parentheses: `(`, `)` (never `&lpar;` or `&rpar;`)
   - Greek letters: `α`, `β`, `θ`, `π` (never `&alpha;` or `&theta;`)
   - Operators & Math signs: `−` (true minus U+2212), `×`, `÷`, `·`, `±`, `√`, `∠`, `°`
+- **Headless Chromium Offline Math Rendering (No Remote CDN)**:
+  When generating PDFs via headless Chromium (`--print-to-pdf`), NEVER load external MathJax CDNs (e.g. `cdn.jsdelivr.net/.../tex-svg.js`). In environments with proxy or egress restrictions, remote asset requests fail silently (`handshake failed; net_error -101`), dumping raw unresolved TeX expressions (`\sin^2 x`, `\frac{...}{...}`) into the final PDF.
+  Strictly use pure offline HTML/CSS fractions:
+  ```css
+  .fraction { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; padding: 0 3px; font-size: 0.95em; line-height: 1.05; }
+  .fraction .num { border-bottom: 1.5px solid currentColor; padding-bottom: 1px; }
+  .fraction .den { padding-top: 1px; }
+  ```
+  Combined with direct Unicode glyphs, this compiles 100% reliably without network access or rendering glitches.
 - **Chromium PDF Flags (Suppressing Browser Header/Footer)**:
   When rendering via headless Chromium, ALWAYS pass `--no-pdf-header-footer` along with standard flags:
   ```bash
@@ -38,7 +47,7 @@ Typeset publication-quality Persian multiple-choice and descriptive STEM exams (
   Without `--no-pdf-header-footer`, Chromium stamps the system date/timestamp (e.g., `10/27/26, 3:32 PM`) and file URL across the top and bottom of every printable page, ruining the clean academic exam aesthetic.
 - **Page Balancing & Orphan Elimination**:
   When using `page-break-inside: avoid;` on question cards (`.q-card`):
-  - Avoid cards exceeding ~950px of printable height on A4. If an SVG diagram is included, keep its height compact (130px to 160px max) so the complete question (Stem, Options, SVG, Steps, Trap box) fits on one page.
+  - Avoid cards exceeding ~950px of printable height on A4. If an SVG diagram is included, keep its height compact (100px to 130px max) so the complete question (Stem, Options, SVG, Steps, Trap box) fits on one page.
   - Never place a page break immediately between a section header and its first question card; group the section bar with the first question card (or place the `page-break-before: always;` on the section bar itself with `margin-top: 0;`) so section titles never sit alone on an orphaned page.
   - Post-build assertion: Check page text lengths with `pypdf` to ensure no page has <150 characters (orphaned headings or 1-line spillovers).
 - **Enforced Anti-Raw-LaTeX & Entity Pre-Flight Gate**: When using HTML-based math rendering, NEVER allow raw LaTeX control sequences (`\text{...}`, `\text{LHS}`, `\text{RHS}`, `\quad`, `\checkmark`, `\left`, `\right`, `\implies`, `\times`) to leak into the HTML body. Use natural Persian text (`طرف اول:`, `طرف دوم`, `✓ (حکم ثابت شد)`).
@@ -69,10 +78,15 @@ Typeset publication-quality Persian multiple-choice and descriptive STEM exams (
 
 ## Scanned Exam Document Ingestion (CamScanner Workflow)
 When a user provides a CamScanner or image-only PDF (`pypdf` page text length is 0):
-1. Extract page images directly using `pypdf.PdfReader(path).pages[i].images`.
-2. Transcribe and parse question texts using the active multimodal model with base64 `image_url` data payload via local inference bridge (e.g., 9router `127.0.0.1:20128`), bypassing external cloud vision endpoints that time out under host egress restrictions.
-3. Formally verify every mathematical step, formula, and option in Python using SymPy before writing solutions.
-4. Compile cleanly with headless Chromium and verify the PDF text before delivery.
+1. **Extract Images**: Extract page images directly using `pypdf.PdfReader(path).pages[i].images`.
+2. **Page Orientation & Sideways Detection**:
+   CamScanner and phone scans frequently contain sideways pages (width > height). Multimodal vision models fail or hallucinate formulas when reading vertical/sideways text. Check dimensions in PIL; if rotated, apply `image.rotate(90, expand=True)` (or 270°) before transcribing.
+3. **Payload Downscaling & Question Slicing**:
+   Uploading raw 4000x3000 scans (>2MB) to vision endpoints causes read timeouts and 429 quota exhaustion. Downscale full pages with `thumbnail((1200, 1200))` or slice individual question bounding boxes (<100KB) to ensure rapid, error-free transcription.
+4. **Formal SymPy Verification**:
+   Formally verify every mathematical step, formula, and option in Python using SymPy before drafting solutions.
+5. **Compile & Pre-Flight Gate**:
+   Compile cleanly with headless Chromium (`--no-pdf-header-footer`) and run the pre-flight verification script to confirm zero raw LaTeX leakage and zero name leakage.
 
 ## Web App Alternative & Fallback (Web Link Delivery)
 When user asks for a web view, web link, or when headless PDF layout has issues (such as flexbox superscript flattening or mobile responsive viewing needed):
