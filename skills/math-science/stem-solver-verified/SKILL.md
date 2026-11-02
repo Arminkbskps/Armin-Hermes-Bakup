@@ -1,7 +1,7 @@
 ---
 name: stem-solver-verified
 description: "Use when solving math, physics, or chemistry problems."
-version: 1.0.0
+version: 1.1.0
 author: Armin & Hermes
 license: MIT
 platforms: [linux, macos, windows]
@@ -21,6 +21,7 @@ Procedure for solving high school (Sampad / Konkur / Olympiad) mathematics, phys
    - Never perform long algebraic divisions, large matrix determinants, or stoichiometric balancing in mental approximations.
 3. **Step-by-Step Persian Solution & Delivery Rules**:
    - **Primary Deliverable First**: When the student provides an exam document and asks to solve it (e.g. «این سوالات رو مثل قبل حل کن»، «جواب این رو هم بساز»), the core deliverable is the compiled, print-ready PDF booklet. Always generate, verify, and attach the PDF (`MEDIA:/path/to/pdf`) directly alongside a concise summary, rather than outputting a massive multi-page text transcript in chat before building the PDF.
+   - **Strict Stacked Fraction Rule (کسر طبقاتی عمودی)**: NEVER use inline slashes like `1/3`, `2/3`, `4/3` in PDF booklets or final solutions. In Persian reading, slashes are easily confused with decimal numbers (e.g. `1/3` reading as `۱٫۳`). Always format as stacked vertical fractions with horizontal fraction bars. Multi-story fractions must have a clearly distinct, longer main fraction line.
    - **Curriculum Calibration**: Explain clear conceptual steps following Iranian high-school curriculum standards (e.g. Grade 10 Lesson 2 trigonometry) without unsolicited calculus shortcuts.
    - **Tone & Register**: Keep the voice friendly, clear, and encouraging (صمیمی، دقیق، رفیقانه), explaining the intuition behind each algebraic step.
    - **Telegram Chat Formatting**: Convert all LaTeX to clean, readable Unicode math in chat prose (`sin²x`, `cos θ`, `α`, `√( ... )`, `±`, `(a / b)`); never leak unrendered LaTeX control codes.

@@ -1,7 +1,7 @@
 ---
 name: exam-pdf-typesetter
 description: "Use when typesetting Persian STEM exams and test booklets."
-version: 1.3.0
+version: 1.4.0
 author: Armin & Hermes
 license: MIT
 platforms: [linux, macos, windows]
@@ -19,8 +19,11 @@ Typeset publication-quality Persian multiple-choice and descriptive STEM exams (
 - **Strict Anonymity Rule**: NEVER put student or user name anywhere on the document (header, footer, meta, or body) unless explicitly asked. Run `grep -i '<name>'` on HTML/PDF text to verify 0 occurrences.
 - **Two-Column Grid**: 2 balanced columns with vertical divider line.
 - **Question Format**: Bold Persian question number, clear stem, aligned four choices (۱) (۲) (۳) (۴).
-- **Math & Formulas**: Typst math mode ($...$) or clean rendered HTML/CSS fractions (see `references/html_math_css_template.md`).
-- **Unicode Superscripts Over HTML `<sup>`**: In flexbox math containers (`display: inline-flex`), Chromium's PDF renderer flattens `<sup>` tags to the baseline, rendering expressions like `(3 tan α + 2)²` as `(3 tan α + 2)2=`. Always use true Unicode superscript glyphs (`²`, `³`, `⁴`, `⁶`, `⁰`, `¹`) for numerical exponents.
+- **Math & Formulas**:
+  - **Strict Prohibition of Slash Fractions (`1/3`, `2/3`, `a/b`)**: NEVER write fractions with an inline forward slash (e.g., `1/3`, `2/3`, `1/a3`, `4/3`) anywhere in question stems, options, pedagogical roadmaps, derivations, or trap boxes. In Persian typography, `1/3` resembles a decimal number (`۱٫۳` - یک و سه دهم) or causes severe misinterpretation. Every single fraction MUST be a vertical stacked fraction (کسر طبقاتی) with an explicit horizontal fraction bar.
+  - **Compound & Multi-Level Fractions (کسر طبقاتی مرکب)**: When fractions are nested within fractions (e.g. `\frac{\frac{1}{3}}{\frac{2}{3}}` or `\frac{34}{\frac{11}{12}}`), the primary fraction bar MUST be distinctly longer, thicker, and centered relative to the sub-fraction bars so the hierarchy of operations is unmistakable at a glance.
+  - **Preferred Offline KaTeX Engine**: Pre-render all LaTeX math directly into static HTML via local KaTeX (`bun -e "const katex = require('...'); ..."` or node) and inline `katex.min.css`. This completely eliminates font flattening, baseline shifts, and CDN network dependencies while producing publication-grade vertical fractions and superscripts.
+  - **Unicode Superscripts Over HTML `<sup>`**: In flexbox math containers (`display: inline-flex`), Chromium's PDF renderer flattens `<sup>` tags to the baseline, rendering expressions like `(3 tan α + 2)²` as `(3 tan α + 2)2=`. Always use true Unicode superscript glyphs (`²`, `³`, `⁴`, `⁶`, `⁰`, `¹`) for numerical exponents when using raw HTML, or use KaTeX.
 - **Strict Prohibition of HTML Entities in Math Templates**: Never use HTML named entities (such as `&implies;`, `&lpar;`, `&rpar;`, `&alpha;`, `&theta;`, `&minus;`, etc.) in HTML math generation. Many entity names are non-standard, unhandled by rendering engines, or fail silently in headless Chromium, leaking literal text like `&implies;` directly into the student booklet.
   ALWAYS use direct UTF-8 Unicode characters:
   - Arrows & Relations: `⇒`, `→`, `⇔` (never `&implies;` or `&rArr;`)
@@ -29,22 +32,21 @@ Typeset publication-quality Persian multiple-choice and descriptive STEM exams (
   - Operators & Math signs: `−` (true minus U+2212), `×`, `÷`, `·`, `±`, `√`, `∠`, `°`
 - **Headless Chromium Offline Math Rendering (No Remote CDN)**:
   When generating PDFs via headless Chromium (`--print-to-pdf`), NEVER load external MathJax CDNs (e.g. `cdn.jsdelivr.net/.../tex-svg.js`). In environments with proxy or egress restrictions, remote asset requests fail silently (`handshake failed; net_error -101`), dumping raw unresolved TeX expressions (`\sin^2 x`, `\frac{...}{...}`) into the final PDF.
-  Strictly use pure offline HTML/CSS fractions:
+  Always pre-render math via local KaTeX with bundled CSS, or use pure offline CSS fractions:
   ```css
   .fraction { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; padding: 0 3px; font-size: 0.95em; line-height: 1.05; }
   .fraction .num { border-bottom: 1.5px solid currentColor; padding-bottom: 1px; }
   .fraction .den { padding-top: 1px; }
   ```
-  Combined with direct Unicode glyphs, this compiles 100% reliably without network access or rendering glitches.
 - **Chromium PDF Flags (Suppressing Browser Header/Footer)**:
   When rendering via headless Chromium, ALWAYS pass `--no-pdf-header-footer` along with standard flags:
   ```bash
   chromium --headless --no-sandbox --disable-gpu \
+    --allow-file-access-from-files \
     --run-all-compositor-stages-before-draw \
     --no-pdf-header-footer \
     --print-to-pdf=output.pdf input.html
   ```
-  Without `--no-pdf-header-footer`, Chromium stamps the system date/timestamp (e.g., `10/27/26, 3:32 PM`) and file URL across the top and bottom of every printable page, ruining the clean academic exam aesthetic.
 - **Page Balancing & Orphan Elimination**:
   When using `page-break-inside: avoid;` on question cards (`.q-card`):
   - Avoid cards exceeding ~950px of printable height on A4. If an SVG diagram is included, keep its height compact (100px to 130px max) so the complete question (Stem, Options, SVG, Steps, Trap box) fits on one page.
@@ -67,13 +69,13 @@ Typeset publication-quality Persian multiple-choice and descriptive STEM exams (
   pdf_text = ''.join(p.extract_text() or '' for p in reader.pages)
   assert '&' not in pdf_text, 'Unescaped & entity found in PDF'
   assert not re.search(r'\\)\\d+=', pdf_text), 'Flattened exponent like )2= found in PDF'
+  assert not re.search(r'[0-9]+/[0-9]+', pdf_text), 'Slash fraction found instead of stacked fraction'
   for i, p in enumerate(reader.pages):
       txt = p.extract_text() or ''
       assert len(txt.strip()) > 150, f'Page {i+1} is orphaned/too short ({len(txt)} chars)'
   print('Pre-delivery verification passed: 100% clean PDF text!')
   "
   ```
-  Fail the build immediately if any unrendered macro, ampersand entity, or broken symbol is found.
 - **Embedded Figures**: Centered, sharp vector SVG or 300+ DPI images adjacent to the relevant question.
 
 ## Scanned Exam Document Ingestion (CamScanner Workflow)
