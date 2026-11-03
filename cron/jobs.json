@@ -23,15 +23,15 @@
       "schedule_display": "every 360m",
       "repeat": {
         "times": null,
-        "completed": 110
+        "completed": 111
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-03T14:13:45.040324+00:00",
-      "next_run_at": "2026-11-03T10:25:12.488255+00:00",
-      "last_run_at": "2026-11-03T04:25:12.488255+00:00",
+      "next_run_at": "2026-11-03T16:27:42.474054+00:00",
+      "last_run_at": "2026-11-03T10:27:42.474054+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -49,9 +49,9 @@
       "enabled_toolsets": null,
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-11-03T04:23:02.475004+00:00",
-        "dispatched_at": "2026-11-03T04:23:05.266009+00:00",
-        "lateness_seconds": 2.8,
+        "scheduled_at": "2026-11-03T10:25:12.488255+00:00",
+        "dispatched_at": "2026-11-03T10:26:05.265510+00:00",
+        "lateness_seconds": 52.8,
         "kind": "on_time"
       },
       "fire_claim": null,
@@ -60,7 +60,7 @@
         "detail": "RuntimeError: HTTP 401: �\b\u0000\u0000\u0000\u0000\u0000\u0000\u0003�VJ-*�/R�Rr\f�T�N�T(J-,�,JMQH�/R(J��/IU\u0000�%&'�\u0016\u0017+�\u0002\u0000�k\u0004�2\u0000\u0000\u0000"
       },
       "canonical_completions": [
-        "b7f0c96cacdf4d209660310412979217"
+        "41adb9e892c74c8895854c8b4fd6e972"
       ]
     },
     {
@@ -86,15 +86,15 @@
       "schedule_display": "every 30m",
       "repeat": {
         "times": null,
-        "completed": 1189
+        "completed": 1200
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-06T12:27:07.474669+00:00",
-      "next_run_at": "2026-11-03T07:55:05.331170+00:00",
-      "last_run_at": "2026-11-03T07:25:05.331170+00:00",
+      "next_run_at": "2026-11-03T13:36:05.350416+00:00",
+      "last_run_at": "2026-11-03T13:06:05.350416+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -113,8 +113,8 @@
       "workdir": null,
       "fire_claim": null,
       "last_dispatch": {
-        "scheduled_at": "2026-11-03T07:24:05.320819+00:00",
-        "dispatched_at": "2026-11-03T07:25:05.266636+00:00",
+        "scheduled_at": "2026-11-03T13:05:05.354885+00:00",
+        "dispatched_at": "2026-11-03T13:06:05.267915+00:00",
         "lateness_seconds": 59.9,
         "kind": "on_time"
       },
@@ -146,15 +146,15 @@
       "schedule_display": "every 360m",
       "repeat": {
         "times": null,
-        "completed": 30
+        "completed": 31
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-26T12:59:44.330343+00:00",
-      "next_run_at": "2026-11-03T13:30:05.302007+00:00",
-      "last_run_at": "2026-11-03T01:29:36.426858+00:00",
+      "next_run_at": "2026-11-03T19:31:05.283743+00:00",
+      "last_run_at": "2026-11-03T07:30:36.467484+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -175,19 +175,19 @@
       ],
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-11-03T07:29:36.426858+00:00",
-        "dispatched_at": "2026-11-03T07:30:05.265755+00:00",
+        "scheduled_at": "2026-11-03T13:30:36.467484+00:00",
+        "dispatched_at": "2026-11-03T13:31:05.268206+00:00",
         "lateness_seconds": 28.8,
         "kind": "on_time"
       },
       "fire_claim": {
-        "at": "2026-11-03T07:30:05.303800+00:00",
-        "by": "6060f57e-6bf0-4f9e-85a7-bde2d982ee00:1062362:e9582a7833da42baae7fcafcb00a689c"
+        "at": "2026-11-03T13:31:05.285481+00:00",
+        "by": "6060f57e-6bf0-4f9e-85a7-bde2d982ee00:1062362:47623788b581408d8dfa1cd0843a301a"
       },
       "canonical_completions": [
-        "5e011a090d984776b59313aebe2a87d1"
+        "9d088210149e44dcba6d77cefe8fcc32"
       ]
     }
   ],
-  "updated_at": "2026-11-03T07:30:05.304017+00:00"
+  "updated_at": "2026-11-03T13:31:05.285809+00:00"
 }

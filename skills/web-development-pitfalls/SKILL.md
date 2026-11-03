@@ -597,6 +597,18 @@ If the expected route is missing from this output, the code is fine — the proc
 6. **GPU-Composited Shimmer Animations:** Avoid animating `background-position` or `background-position-x` on `.skeleton` placeholders (which causes main-thread repaint and triggers Lighthouse's "Avoid non-composited animations" penalty). Use GPU-composited `opacity` pulsing (`@keyframes { 0%, 100% { opacity: 0.8; } 50% { opacity: 0.3; } } will-change: opacity;`).
 7. **Preload LCP Image Candidates:** For client-rendered carousels where the primary LCP candidate is injected by JS, add `<link rel="preload" as="image" href="..." fetchpriority="high" type="image/webp">` in `<head>` to eliminate the 3-second discovery delay on mobile 4G.
 
+## Web Audio & Timer Alarm Sounds (Real Audio vs Synthetic Oscillators)
+
+**Pitfall:** Generating alarms or chimes via Web Audio API oscillators (`createOscillator()` with pure sine/square waves) feels artificial, harsh, and cheap to users. Furthermore, synthetic sound generation lacks the rich natural overtones of real instruments (bells, gongs, pianos, marimbas), and audio contexts are blocked by mobile autoplay policies until explicit user interaction.
+
+**Rules for Study & Timer Alarms (Validated 2026-11-03):**
+1. **Never Synthesize Beeps When Real Audio is Expected:** When building or upgrading alarms for study timers, focus clocks, or productivity apps, download real recorded audio files from open-source sound repositories rather than generating tone approximations in code.
+2. **Audio Normalization (EBU R128):** Raw downloaded audio clips have wildly different gain levels. Always normalize each `.mp3` with ffmpeg's broadcast loudness filter:
+   `ffmpeg -y -i input.mp3 -af 'loudnorm=I=-16:TP=-1.5:LRA=11' -ac 1 -ar 44100 -b:a 96k output.mp3`
+   This ensures switching between sounds (e.g., an electric school bell vs a soft piano chord) produces consistent, comfortable listening levels without clipping.
+3. **PWA & Offline Service Worker Caching:** Add all sound asset paths (`./sounds/*.mp3`) to the Service Worker `CORE` cache array and bump the cache version string (e.g., `study-timer-v6`). This guarantees sounds trigger instantly with zero network delay and work 100% offline.
+4. **User-Gesture Audio Unlock & Pool Preloading:** Mobile browsers strictly block background audio playback unless the user has interacted with the document. Attach a one-time listener to `['click', 'touchstart', 'keydown']` that pre-instantiates an `AUDIO_CACHE` dictionary of `new Audio(src)` with `preload = 'auto'` so timer alarms play seamlessly even if the phone screen is locked or idle.
+
 ## Chrome Extension Development & Unpacked Deployment Pitfalls
 
 **Pitfall 1 — Reserved Underscore Names (`__pycache__`):**

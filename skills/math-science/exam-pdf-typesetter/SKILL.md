@@ -49,6 +49,9 @@ Typeset publication-quality Persian multiple-choice and descriptive STEM exams (
   ```
   Fail the build immediately if any unrendered macro, ampersand entity, or broken symbol is found.
 - **Embedded Figures**: Centered, sharp vector SVG or 300+ DPI images adjacent to the relevant question.
+  - **BiDi Flip Guard in SVG Vector Diagrams**: In RTL HTML documents (`dir="rtl"`), Chromium's text shaping engine reverses mixed alphanumeric strings, coordinates, dimensions, and radicals inside SVG `<text>` elements (e.g. `5√2` renders flipped as `2√5`, `32√5` as `5√32`, `150cm` as `cm150`, `P(1-3a, 4a)` as `(4a, 1-3a)P`). ALWAYS add `direction="ltr"` to `<text>` elements containing formulas, dimensions, coordinates, or units inside SVG figures.
+  - **KaTeX Error Fallback & Red Error Text Gate**: When rendering KaTeX server-side with `throwOnError: false`, syntax errors (unclosed braces like `\frac{1}{\sqrt{3}`, unsupported macros, or Persian characters inside `\text{...}` that lack font metrics) silently emit `<span class="katex-error" style="color:#cc0000">...</span>`, leaking raw red LaTeX code directly into the compiled exam PDF. ALWAYS assert `assert '<span class="katex-error"' not in html` before Chromium compilation.
+  - **Complete Question Preservation**: When solving or restructuring an exam booklet, never silently drop numbered questions (such as cross-topic questions between chapters). Preserve the full numbered sequence or explicitly account for every question.
 
 ## Scanned Exam Document Ingestion (CamScanner Workflow)
 When a user provides a CamScanner or image-only PDF (`pypdf` page text length is 0):
